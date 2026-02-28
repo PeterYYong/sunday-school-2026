@@ -75,7 +75,51 @@
         .video-btn:hover { background: #cc0000; transform: translateY(-2px); }
 
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }/* --- 모바일 사이드바 토글 버튼 (PC에선 숨김) --- */
+.menu-btn { display: none; background: #e67e22; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-bottom: 20px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; }
+
+/* --- 모바일 환경 설정 (화면 너비 768px 이하일 때만 작동) --- */
+@media (max-width: 768px) {
+    .menu-btn { display: inline-block; } /* 버튼 표시 */
+    
+    /* 사이드바를 화면 왼쪽 밖으로 숨김 */
+    nav { position: fixed; top: 0; left: -100%; height: 100vh; z-index: 999; transition: left 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
+    
+    /* 자바스크립트로 .open 클래스가 붙으면 화면 안으로 들어옴 */
+    nav.open { left: 0; }
+    .overlay.open { display: block; }
+    
+    /* 모바일 여백 조정 */
+    main { padding: 20px; }
+    .header { padding: 25px; }
+    .header h1 { font-size: 1.4rem; }
+    .script-row { padding-left: 25px; }
+}
+
+/* --- 모바일 사이드바 토글 버튼 (PC에선 숨김) --- */
+.menu-btn { display: none; background: #e67e22; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-bottom: 20px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; }
+
+/* --- 모바일 환경 설정 (화면 너비 768px 이하일 때만 작동) --- */
+@media (max-width: 768px) {
+    .menu-btn { display: inline-block; } /* 버튼 표시 */
+    
+    /* 사이드바를 화면 왼쪽 밖으로 숨김 */
+    nav { position: fixed; top: 0; left: -100%; height: 100vh; z-index: 999; transition: left 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
+    
+    /* 자바스크립트로 .open 클래스가 붙으면 화면 안으로 들어옴 */
+    nav.open { left: 0; }
+    .overlay.open { display: block; }
+    
+    /* 모바일 여백 조정 */
+    main { padding: 20px; }
+    .header { padding: 25px; }
+    .header h1 { font-size: 1.4rem; }
+    .script-row { padding-left: 25px; }
+}
+
+
     </style>
 </head>
 <body>
