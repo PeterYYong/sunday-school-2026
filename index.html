@@ -150,6 +150,9 @@
 </nav>
 
 <main id="main-content">
+    
+    <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+    <button class="menu-btn" onclick="toggleMenu()">☰ 교안 메뉴 보기</button>
 
     <div id="home" class="page active">
         <div class="hero">
@@ -555,7 +558,14 @@
 
 </main>
 
+
 <script>
+    // 사이드바 열고 닫기 함수
+    function toggleMenu() {
+        document.querySelector('nav').classList.toggle('open');
+        document.getElementById('overlay').classList.toggle('open');
+    }
+
     // 메뉴 클릭 시 해당 페이지 열기 기능
     function openPage(pageId) {
         // 모든 페이지 숨기기
@@ -569,13 +579,18 @@
         const links = document.querySelectorAll('.nav-link');
         links.forEach(l => l.classList.remove('active'));
         
-        // 홈버튼 클릭이 아닌 경우에만 활성화 (홈버튼은 h2 요소이므로)
         if(pageId !== 'home') {
             document.getElementById('link-' + pageId).classList.add('active');
         }
 
         // 메인 영역 스크롤 맨 위로 이동
         document.getElementById('main-content').scrollTop = 0;
+
+        // 모바일 환경일 경우, 교안을 선택하면 사이드바 자동 닫기
+        if(window.innerWidth <= 768) {
+            document.querySelector('nav').classList.remove('open');
+            document.getElementById('overlay').classList.remove('open');
+        }
     }
 </script>
 
