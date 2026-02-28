@@ -101,23 +101,60 @@
 .menu-btn { display: none; background: #e67e22; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-bottom: 20px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
 .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; }
 
-/* --- 모바일 환경 설정 (화면 너비 768px 이하일 때만 작동) --- */
-@media (max-width: 768px) {
-    .menu-btn { display: inline-block; } /* 버튼 표시 */
-    
-    /* 사이드바를 화면 왼쪽 밖으로 숨김 */
-    nav { position: fixed; top: 0; left: -100%; height: 100vh; z-index: 999; transition: left 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
-    
-    /* 자바스크립트로 .open 클래스가 붙으면 화면 안으로 들어옴 */
-    nav.open { left: 0; }
-    .overlay.open { display: block; }
-    
-    /* 모바일 여백 조정 */
-    main { padding: 20px; }
-    .header { padding: 25px; }
-    .header h1 { font-size: 1.4rem; }
-    .script-row { padding-left: 25px; }
-}
+/* --- 공통: 한국어 단어 단위 줄바꿈 최적화 --- */
+        body { 
+            word-break: keep-all; /* 단어 중간에 줄이 안 끊기게 함 */
+            overflow-wrap: break-word; 
+        }
+
+        /* --- 모바일 사이드바 배경 (평소엔 숨김) --- */
+        .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; }
+
+        /* --- 모바일 환경 최적화 (화면 너비 768px 이하) --- */
+        @media (max-width: 768px) {
+            /* 1. 항상 화면에 떠 있는 플로팅 메뉴 버튼으로 변경 */
+            .menu-btn { 
+                display: inline-block; 
+                position: fixed; 
+                bottom: 30px; /* 화면 우측 하단에 고정 */
+                right: 20px; 
+                background: #e67e22; 
+                color: white; 
+                border: none; 
+                padding: 14px 20px; 
+                border-radius: 50px; /* 둥근 버튼 형태 */
+                font-size: 1rem; 
+                font-weight: bold;
+                cursor: pointer; 
+                z-index: 997; 
+                box-shadow: 0 4px 12px rgba(230,126,34,0.4); 
+            } 
+            
+            /* 2. 사이드바 너비 조정 및 부드러운 등장 */
+            nav { position: fixed; top: 0; left: -100%; width: 280px; height: 100vh; z-index: 999; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
+            nav.open { left: 0; }
+            .overlay.open { display: block; }
+            
+            /* 3. 모바일 화면에 맞게 낭비되는 여백(Padding) 대폭 축소 */
+            main { padding: 15px; }
+            .hero { padding: 30px 20px; margin-bottom: 25px;}
+            .hero h1 { font-size: 1.6rem; }
+            
+            .header { padding: 25px 20px; margin-bottom: 20px; border-radius: 15px;}
+            .header h1 { font-size: 1.35rem; }
+            .meta-box { padding: 15px; font-size: 0.9rem; margin-top: 15px;}
+            
+            .module { padding: 20px 15px; margin-bottom: 20px; border-radius: 12px;}
+            .module-label { font-size: 1.05rem; }
+            
+            .script-row { padding-left: 28px; font-size: 0.95rem; margin-bottom: 12px;}
+            .script-row::before { font-size: 1rem; }
+            .action-instruction { padding: 10px 15px; font-size: 0.85rem; margin: 15px 0; }
+            
+            /* 4. 홈 화면의 카드 목록을 한 줄로 꽉 차게 변경 */
+            .grid-container { grid-template-columns: 1fr; gap: 15px;}
+            .card { padding: 20px; }
+        }
 
 
     </style>
