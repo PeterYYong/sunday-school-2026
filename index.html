@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>우산동성당 1학기 주일학교 저학년 교안</title>
+    <title>1학기 주일학교 교사 마스터 포털</title>
     <style>
         @import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
         :root {
             --lent: #9b59b6; --joseph: #f39c12; --easter: #3498db; --mary: #e91e63; --heart: #e74c3c;
             --bg: #fffbf5; --text: #2c3e50; --teacher: #d35400; --sidebar: #ffffff;
         }
-        body { font-family: 'Pretendard', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; }
+        body { 
+            font-family: 'Pretendard', sans-serif; background: var(--bg); color: var(--text); margin: 0; display: flex; height: 100vh; overflow: hidden; 
+            word-break: keep-all; overflow-wrap: break-word; /* 단어 끊김 방지 */
+        }
         
         /* 사이드바 네비게이션 */
         nav { width: 330px; background: var(--sidebar); border-right: 1px solid #e0e0e0; overflow-y: auto; padding: 20px; flex-shrink: 0; box-shadow: 2px 0 10px rgba(0,0,0,0.03); }
@@ -75,67 +78,47 @@
         .video-btn:hover { background: #cc0000; transform: translateY(-2px); }
 
         ::-webkit-scrollbar { width: 6px; }
-        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }/* --- 모바일 사이드바 토글 버튼 (PC에선 숨김) --- */
-.menu-btn { display: none; background: #e67e22; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-bottom: 20px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; }
-
-/* --- 모바일 환경 설정 (화면 너비 768px 이하일 때만 작동) --- */
-@media (max-width: 768px) {
-    .menu-btn { display: inline-block; } /* 버튼 표시 */
-    
-    /* 사이드바를 화면 왼쪽 밖으로 숨김 */
-    nav { position: fixed; top: 0; left: -100%; height: 100vh; z-index: 999; transition: left 0.3s ease; box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
-    
-    /* 자바스크립트로 .open 클래스가 붙으면 화면 안으로 들어옴 */
-    nav.open { left: 0; }
-    .overlay.open { display: block; }
-    
-    /* 모바일 여백 조정 */
-    main { padding: 20px; }
-    .header { padding: 25px; }
-    .header h1 { font-size: 1.4rem; }
-    .script-row { padding-left: 25px; }
-}
-
-/* --- 모바일 사이드바 토글 버튼 (PC에선 숨김) --- */
-.menu-btn { display: none; background: #e67e22; color: white; border: none; padding: 10px 15px; border-radius: 8px; font-size: 1rem; cursor: pointer; margin-bottom: 20px; font-weight: bold; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
-.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; }
-
-/* --- 공통: 한국어 단어 단위 줄바꿈 최적화 --- */
-        body { 
-            word-break: keep-all; /* 단어 중간에 줄이 안 끊기게 함 */
-            overflow-wrap: break-word; 
-        }
+        ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 10px; }
 
         /* --- 모바일 사이드바 배경 (평소엔 숨김) --- */
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 998; }
 
+        /* --- 모바일 고정 상단바 --- */
+        .mobile-topbar { display: none; }
+
         /* --- 모바일 환경 최적화 (화면 너비 768px 이하) --- */
         @media (max-width: 768px) {
-            /* 1. 항상 화면에 떠 있는 플로팅 메뉴 버튼으로 변경 */
-            .menu-btn { 
-                display: inline-block; 
-                position: fixed; 
-                bottom: 30px; /* 화면 우측 하단에 고정 */
-                right: 20px; 
-                background: #e67e22; 
-                color: white; 
-                border: none; 
-                padding: 14px 20px; 
-                border-radius: 50px; /* 둥근 버튼 형태 */
-                font-size: 1rem; 
+            .mobile-topbar {
+                display: flex;
+                position: sticky;
+                top: 0;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(5px);
+                padding: 12px 15px;
+                margin: -15px -15px 20px -15px;
+                border-bottom: 1px solid #e0e0e0;
+                z-index: 990;
+                justify-content: space-between;
+                align-items: center;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            }
+            .mobile-topbar button {
+                background: white;
+                border: 1px solid #ddd;
+                padding: 8px 12px;
+                border-radius: 8px;
+                font-size: 0.9rem;
                 font-weight: bold;
-                cursor: pointer; 
-                z-index: 997; 
-                box-shadow: 0 4px 12px rgba(230,126,34,0.4); 
-            } 
+                color: #2c3e50;
+                cursor: pointer;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            }
+            .mobile-topbar span { font-weight: 800; color: #e67e22; font-size: 1.1rem; }
             
-            /* 2. 사이드바 너비 조정 및 부드러운 등장 */
             nav { position: fixed; top: 0; left: -100%; width: 280px; height: 100vh; z-index: 999; transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1); box-shadow: 5px 0 15px rgba(0,0,0,0.2); }
             nav.open { left: 0; }
             .overlay.open { display: block; }
             
-            /* 3. 모바일 화면에 맞게 낭비되는 여백(Padding) 대폭 축소 */
             main { padding: 15px; }
             .hero { padding: 30px 20px; margin-bottom: 25px;}
             .hero h1 { font-size: 1.6rem; }
@@ -151,12 +134,9 @@
             .script-row::before { font-size: 1rem; }
             .action-instruction { padding: 10px 15px; font-size: 0.85rem; margin: 15px 0; }
             
-            /* 4. 홈 화면의 카드 목록을 한 줄로 꽉 차게 변경 */
             .grid-container { grid-template-columns: 1fr; gap: 15px;}
             .card { padding: 20px; }
         }
-
-
     </style>
 </head>
 <body>
@@ -189,7 +169,12 @@
 <main id="main-content">
     
     <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
-    <button class="menu-btn" onclick="toggleMenu()">☰ 교안 메뉴 보기</button>
+    
+    <div class="mobile-topbar">
+        <button onclick="toggleMenu()">☰ 메뉴</button>
+        <span>📖 주일학교 교안</span>
+        <button onclick="openPage('home')">🏠 홈으로</button>
+    </div>
 
     <div id="home" class="page active">
         <div class="hero">
@@ -223,7 +208,7 @@
         </div>
         <div class="module m0-border">
             <span class="module-label">[M0] 오프닝 및 시작 기도 (3분)</span>
-            <div class="script-row"><span class="speaker">교사:</span> 1학년, 2학년 친구들, 한 주 동안 잘 지냈나요? 모두 자리에 바르게 앉아서 오늘 준비된 사순 교재를 펴볼까요. 첫 페이지에 있는 시작 기도를 두 손 모으고 함께 바치겠습니다.</div>
+            <div class="script-row"><span class="speaker">교사:</span> 친구들, 한 주 동안 잘 지냈나요? 모두 자리에 바르게 앉아서 오늘 준비된 사순 교재를 펴볼까요. 첫 페이지에 있는 시작 기도를 두 손 모으고 함께 바치겠습니다.</div>
             <div class="script-row"><span class="all-speaker">교사/아동 다 함께:</span> 우리를 위해 고통받으신 예수님, 저희가 그 사랑을 기억하며 잘못을 깨닫고 뉘우치는 하느님의 자녀가 될 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.</div>
         </div>
         <div class="module m2-border">
@@ -288,26 +273,26 @@
         </div>
         <div class="module m0-border">
             <span class="module-label">[M0] 오프닝 및 시작 기도 (3분)</span>
-            <div class="script-row"><span class="speaker">교사:</span> 1학년, 2학년 친구들, 한 주 동안 잘 지냈나요? 모두 자리에 바르게 앉아서 오늘 준비된 교재를 펴볼까요. 오늘은 3월에 특별히 기억해야 할 요셉 성인에 대해 배울 거예요. 먼저 교재 첫 페이지에 있는 시작 기도를 두 손 모으고 함께 바치겠습니다.</div>
+            <div class="script-row"><span class="speaker">교사:</span> 친구들, 한 주 동안 잘 지냈나요? 모두 자리에 바르게 앉아서 오늘 준비된 교재를 펴볼까요. 오늘은 3월에 특별히 기억해야 할 요셉 성인에 대해 배울 거예요. 먼저 교재 첫 페이지에 있는 시작 기도를 두 손 모으고 함께 바치겠습니다.</div>
             <div class="script-row"><span class="all-speaker">교사/아동 다 함께:</span> 요셉 성인의 보호 속에 자라신 예수님, 저희도 하느님의 보호 속에 안전하고 행복하게 살아가고 있음을 깨닫고 감사드릴 수 있도록 이끌어 주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.</div>
         </div>
         <div class="module m2-border">
             <span class="module-label">[M2] 핵심 교리 선포 (8분)</span>
-            <div class="script-row"><span class="speaker">교사:</span> 3월은 요셉 성인을 특별히 공경하는 '성 요셉 성월'입니다. 요셉 성인의 축일이 3월 19일이기 때문에 교회는 3월을 성 요셉 성월로 지내고 있어요. 요셉 성인은 성모 마리아님의 배필이자, 예수님의 양아버지로서 성가정을 정성껏 돌보신 분입니다. 교재의 '알아봐요' 페이지를 보고, 요셉 성인에게 배울 수 있는 4가지 배울 점을 빈칸에 스티커로 붙여보겠습니다.</div>
+            <div class="script-row"><span class="speaker">교사:</span> 3월은 요셉 성인을 특별히 공경하는 '성 요셉 성월'입니다. 요셉 성인의 축일이 3월 19일이기 때문에 교회는 3월을 성 요셉 성월로 지내고 있어요. 요셉 성인은 성모 마리아님의 배필이자, 성가정을 돌보신 분입니다. 교재의 '알아봐요' 페이지를 보고, 요셉 성인에게 배울 수 있는 4가지 배울 점을 빈칸에 스티커로 붙여보겠습니다.</div>
             <div class="action-instruction">행동 지시: 첫 번째 '순종' 스티커를 보여주며</div>
             <div class="script-row"><span class="speaker">교사:</span> 첫 번째 배울 점은 '순종'이에요. 순종은 하느님이 주신 일을 조용히 잘 받아들이셨다는 뜻이에요. 우리 친구들이 부모님이나 선생님의 바른 가르침에 잘 대답하고 따르는 것과 같습니다. '순종' 스티커를 빈칸에 붙여봅시다.</div>
             <div class="action-instruction">행동 지시: 두 번째 '믿음' 스티커를 보여주며</div>
             <div class="script-row"><span class="speaker">교사:</span> 두 번째 배울 점은 '믿음'이에요. 요셉 성인은 언제나 하느님을 굳게 믿고, 하느님 말씀을 잘 따르셨어요. 두 번째 빈칸에 '믿음' 스티커를 찾아 붙여주세요.</div>
             <div class="action-instruction">행동 지시: 세 번째 '헌신' 스티커를 보여주며</div>
-            <div class="script-row"><span class="speaker">교사:</span> 세 번째 배울 점은 '헌신'입니다. 예수님을 자신의 아들처럼 사랑으로 잘 키워주신 것을 말해요. 날씨가 추울 때 부모님이 여러분에게 따뜻한 옷을 챙겨 입혀주시는 것과 같은 사랑입니다. '헌신' 스티커를 붙여봅시다.</div>
+            <div class="script-row"><span class="speaker">교사:</span> 세 번째 배울 점은 '헌신'입니다. 예수님을 사랑으로 기르신 것을 말해요. 날씨가 추울 때 부모님이 여러분에게 따뜻한 옷을 챙겨 입혀주시는 것과 같은 사랑입니다. '헌신' 스티커를 붙여봅시다.</div>
             <div class="action-instruction">행동 지시: 네 번째 '충실함' 스티커를 보여주며</div>
-            <div class="script-row"><span class="speaker">교사:</span> 마지막 네 번째 배울 점은 '충실함'입니다. 예수님과 성모님을 지키고 열심히 돌보는 좋은 아버지이자 남편이셨어요. 비가 올 때 가족이 비를 맞지 않게 든든한 우산을 씌워주는 모습과 같습니다. 마지막 스티커를 붙여주세요.</div>
+            <div class="script-row"><span class="speaker">교사:</span> 마지막 네 번째 배울 점은 '충실함'입니다. 예수님과 성모님을 지키고 열심히 돌보는 좋은 보호자이셨어요. 비가 올 때 가족이 비를 맞지 않게 든든한 우산을 씌워주는 모습과 같습니다. 마지막 스티커를 붙여주세요.</div>
         </div>
         <div class="module m4-border">
             <span class="module-label">[M4] 정리 퀴즈 및 마침 기도 (4분)</span>
-            <div class="script-row"><span class="speaker">교사:</span> 오늘 배운 내용을 교재 아래쪽의 '기억해요' 퀴즈를 풀며 확인해볼게요. 첫 번째 문제, 요셉 성인을 특별히 공경하는 달은 3월일까요, 5월일까요? 정답은 3월입니다. 교재의 3월에 동그라미를 쳐주세요. 두 번째 문제, 예수님과 성모님을 지키고 열심히 돌보는 좋은 아버지이자 남편이셨던 성인은 요셉 성인일까요, 요한 성인일까요? 정답은 요셉 성인입니다. 요셉에 동그라미를 쳐주세요.</div>
+            <div class="script-row"><span class="speaker">교사:</span> 오늘 배운 내용을 교재 아래쪽의 '기억해요' 퀴즈를 풀며 확인해볼게요. 첫 번째 문제, 요셉 성인을 특별히 공경하는 달은 3월일까요, 5월일까요? 정답은 3월입니다. 교재의 3월에 동그라미를 쳐주세요. 두 번째 문제, 예수님과 성모님을 지키고 열심히 돌보는 보호자이셨던 성인은 요셉 성인일까요, 요한 성인일까요? 정답은 요셉 성인입니다. 요셉에 동그라미를 쳐주세요.</div>
             <div class="script-row"><span class="speaker">교사:</span> 모두 바르게 잘 풀어주었습니다. 교재 옆면을 보면 '요셉 성인의 4가지 배울 점' 카드 게임이 있어요. 이 카드는 집으로 챙겨가서 가족들과 함께 같은 그림을 찾는 가위바위보 게임을 해보기 바랍니다. 마지막으로 오늘 완성한 교재를 모아두고 마침 기도를 바치겠습니다.</div>
-            <div class="script-row"><span class="all-speaker">교사/아동 다 함께:</span> 하느님의 뜻에 따라 예수님의 양아버지가 되신 요셉 성인이여, 예수님을 지켜주신 성인처럼 저희도 서로를 사랑하고 도와줄 수 있도록 저희를 위해 기도해 주세요. 아멘.</div>
+            <div class="script-row"><span class="all-speaker">교사/아동 다 함께:</span> 하느님의 뜻에 따라 성가정을 돌보신 요셉 성인이여, 저희도 서로를 사랑하고 도와줄 수 있도록 저희를 위해 기도해 주세요. 아멘.</div>
         </div>
     </div>
 
@@ -326,7 +311,7 @@
         </div>
         <div class="module m2-border">
             <span class="module-label">[M2] 영상 시청 및 핵심 교리 (10분)</span>
-            <div class="script-row"><span class="speaker">교사:</span> 오늘은 우리 천주교에서 가장 기쁘고 중요한 날인 '부활'에 대해 배울 거예요. 부활이 어떤 뜻인지 선생님의 긴 설명 대신, 재미있는 영상 동화를 하나 준비했습니다. 화면을 바른 자세로 함께 보겠습니다.</div>
+            <div class="script-row"><span class="speaker">교사:</span> 오늘은 우리 천주교에서 가장 기쁘고 중요한 날인 '부활'에 대해 배울 거예요. 부활이 어떤 뜻인지 선생님의 설명 대신, 재미있는 영상 동화를 하나 준비했습니다. 화면을 바른 자세로 함께 보겠습니다.</div>
             <div class="action-instruction">영상 시청: '샬롬, 어린이 성경 동화 예수님의 부활 이야기' 시청</div>
             <a href="https://youtu.be/TiUzfeTiZNg?feature=shared" target="_blank" class="video-btn">▶️ 예수님의 부활 영상 보기</a>
             <div class="script-row"><span class="speaker">교사:</span> 영상 잘 보았나요? 우리 죄를 용서해 주시기 위해 십자가에서 돌아가신 예수님을 사람들은 돌무덤에 모셨어요. 그런데 마리아 막달레나가 무덤에 가보니 무덤을 막고 있던 바위가 치워져 있었고, 예수님이 안 계셨어요.</div>
@@ -404,19 +389,19 @@
             </div>
         </div>
         <div class="module m0-border">
-            <span class="module-label">[M0] 오프닝 및 시작 기도 (3분)</span>
+            <span class="module-label">M0 오프닝 및 시작 기도 (3분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 친구들, 한 주 동안 잘 지냈나요. 바른 자세로 앉아 마음을 모으고 오늘 교리를 시작하겠습니다. 지난 3월에 우리는 예수님을 사랑으로 기르시고 성가정을 돌보신 요셉 성인에 대해 배웠어요. 5월의 첫째 날인 5월 1일도 요셉 성인을 특별히 기억하는 날입니다. 두 손을 모으고 시작 기도를 바치겠습니다.</div>
             <div class="script-row"><span class="all-speaker">교사/아동 다 함께:</span> 성가정을 위해 열심히 일하신 요셉 성인님, 저희도 주어진 일을 성실하게 해내며 하느님께 기쁨을 드리는 자녀가 되도록 이끌어 주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.</div>
         </div>
         <div class="module m2-border">
-            <span class="module-label">[M2] 핵심 교리 선포 (8분) : 구체적 유추 및 마이크로 러닝</span>
+            <span class="module-label">M2 핵심 교리 선포 (8분) : 구체적 유추 및 마이크로 러닝</span>
             <div class="script-row"><span class="speaker">교사:</span> 5월 1일은 '노동자 성 요셉 축일'입니다. 노동자란 우리 가족과 이웃을 위해 땀 흘려 열심히 일하는 모든 분을 말해요. 우리를 안전하게 돌봐주시는 부모님, 맛있는 밥을 지어주시는 분들, 아픈 사람을 치료해 주시는 의사 선생님 모두가 훌륭한 노동자입니다.</div>
             <div class="script-row"><span class="speaker">교사:</span> 요셉 성인도 노동자였어요. 어떤 일을 하셨는지 기억하나요? 맞습니다. 나무를 다듬어 필요한 물건을 만드는 '목수'이셨어요. 요셉 성인은 예수님과 성모님을 안전하게 보호하고 가족의 생활을 책임지기 위해 땀 흘려 정직하게 일하셨습니다.</div>
             <div class="script-row"><span class="speaker">교사:</span> 그래서 비오 12세 교황님께서는 5월 1일을 '노동자 성 요셉 축일'로 정하시고, 세상에서 일하는 모든 사람이 요셉 성인의 성실한 모습을 본받도록 하셨어요. 요셉 성인은 일하는 모든 사람과 우리 가정을 지켜주시는 수호성인이기도 합니다.</div>
             <div class="script-row"><span class="speaker">교사:</span> 그렇다면 우리 친구들의 일, 즉 여러분의 노동은 무엇일까요? 학교와 성당에서 열심히 배우는 것, 내 방을 스스로 깨끗하게 정리하는 것, 부모님의 심부름을 돕는 것이 바로 여러분이 해야 할 소중한 일이에요. 우리도 요셉 성인처럼 내게 주어진 작은 일들을 책임감 있게 해내기로 다짐해 봅시다.</div>
         </div>
         <div class="module m4-border">
-            <span class="module-label">[M4] 정리 퀴즈 및 마침 기도 (4분)</span>
+            <span class="module-label">M4 정리 퀴즈 및 마침 기도 (4분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 오늘 배운 내용을 간단한 퀴즈로 확인해 보겠습니다. 맞으면 머리 위로 동그라미(O), 틀리면 가슴 앞으로 엑스표(X)를 만들어주세요.</div>
             <div class="script-row"><span class="speaker">교사:</span> 첫 번째 문제, 5월 1일은 노동자 성 요셉 축일이다. 하나, 둘, 셋. (정답: O)</div>
             <div class="script-row"><span class="speaker">교사:</span> 두 번째 문제, 요셉 성인의 직업은 물고기를 잡는 어부였다. 하나, 둘, 셋. (정답: X, 나무를 다루는 목수)</div>
@@ -435,19 +420,19 @@
             </div>
         </div>
         <div class="module m0-border">
-            <span class="module-label">[M0] 오프닝 및 시작 기도 (3분)</span>
+            <span class="module-label">M0 오프닝 및 시작 기도 (3분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 친구들, 한 주 동안 잘 지냈나요. 바른 자세로 앉아 오늘 준비된 교재를 펴보겠습니다. 5월에는 성모님을 특별히 기억하고 사랑하는 달입니다. 교재 첫 페이지에 있는 시작 기도를 두 손 모으고 바치겠습니다.</div>
             <div class="script-row"><span class="all-speaker">교사/아동 다 함께:</span> 우리에게 성모님을 어머니로 주신 예수님, 저희를 사랑해 주시고 보호해 주시는 성모님께 감사드리는 마음을 가질 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.</div>
         </div>
         <div class="module m2-border">
-            <span class="module-label">[M2] 영상 시청 및 핵심 교리 (8분)</span>
+            <span class="module-label">M2 영상 시청 및 핵심 교리 (8분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 5월은 성모님을 주님의 어머니이자 우리의 어머니로 특별히 공경하는 '성모 성월'입니다. 성모님이 어떤 분이신지 먼저 준비된 영상을 함께 시청하겠습니다. 화면을 바르게 보아주세요.</div>
             <div class="action-instruction">영상 시청: 유튜브 '초등부 성모 성월' 시청</div>
             <a href="https://youtu.be/d6_tw1bOcgw?si=oIk0uINJLDgJxyQm" target="_blank" class="video-btn">▶️ 성모님 영상 보기</a>
             <div class="script-row"><span class="speaker">교사:</span> 영상을 잘 보았나요. 가브리엘 천사가 성모님을 찾아와 '은총이 가득한 이여, 기뻐하여라.'라고 인사한 내용이 기억날 거예요. 이 인삿말에서 시작된 기도가 바로 우리가 자주 바치는 '성모송'입니다. 성모님은 예수님을 낳으시고 평생 하느님의 말씀에 순종하신 분이에요. 그래서 우리는 5월 한 달 동안 묵주기도를 바치며 성모님께 우리를 위해 기도해 달라고 청합니다.</div>
         </div>
         <div class="module m4-border">
-            <span class="module-label">[M4] 정리 퀴즈 및 마침 (4분)</span>
+            <span class="module-label">M4 정리 퀴즈 및 마침 (4분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 오늘 배운 내용을 간단한 퀴즈로 확인해 볼게요. 맞으면 동그라미(O), 틀리면 엑스표(X)를 손으로 만들어주세요.</div>
             <div class="script-row"><span class="speaker">교사:</span> 첫 번째 문제, 5월은 성모님을 특별히 공경하는 성모 성월이다. (정답: O)</div>
             <div class="script-row"><span class="speaker">교사:</span> 두 번째 문제, 천사의 인사에서 시작된 기도는 주님의 기도이다. (정답: X, 성모송)</div>
@@ -465,11 +450,11 @@
             </div>
         </div>
         <div class="module m0-border">
-            <span class="module-label">[M0] 오프닝 및 복습 (3분)</span>
+            <span class="module-label">M0 오프닝 및 복습 (3분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 친구들, 지난주에 5월이 어떤 달이라고 배웠는지 기억하나요. 네, 성모님을 공경하는 성모 성월입니다. 우리는 성모님을 부를 때 성모 마리아라는 이름 외에도 여러 가지 예쁜 이름으로 부르기도 해요. 오늘은 교재를 보며 성모님의 4가지 이름을 스티커로 붙여보겠습니다.</div>
         </div>
         <div class="module m2-border">
-            <span class="module-label">[M2] 성모님의 이름 스티커 활동 (8분)</span>
+            <span class="module-label">M2 성모님의 이름 스티커 활동 (8분)</span>
             <div class="action-instruction">행동 지시: 5월 성모 성월 붙임 딱지를 준비시킵니다.</div>
             <div class="script-row"><span class="speaker">교사:</span> 교재를 보고 알맞은 스티커를 찾아 붙여봅시다. 첫 번째는 '스텔라'입니다. 스텔라는 '바다의 별'이라는 뜻이에요. 어두운 바다에서 별빛이 길을 알려주듯, 성모님께서 우리를 예수님께로 안전하게 이끌어 주신다는 뜻입니다. 스텔라 스티커를 붙여주세요.</div>
             <div class="script-row"><span class="speaker">교사:</span> 두 번째는 '릴리안'입니다. 릴리안은 하얗고 깨끗한 꽃인 '백합'을 뜻해요. 죄에 물들지 않고 깨끗한 마음을 지니신 성모님을 나타냅니다. 릴리안 스티커를 찾아 붙여봅시다.</div>
@@ -477,7 +462,7 @@
             <div class="script-row"><span class="speaker">교사:</span> 마지막 네 번째는 '레지나'입니다. 레지나는 '여왕'이라는 뜻이에요. 하늘로 불러올림을 받으시고 하늘과 땅의 여왕이 되신 성모님을 뜻합니다. 마지막 스티커를 붙여주세요.</div>
         </div>
         <div class="module m4-border">
-            <span class="module-label">[M4] 정리 및 마침 (4분)</span>
+            <span class="module-label">M4 정리 및 마침 (4분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 4가지 스티커를 모두 바르게 붙여주었습니다. 성모님을 부르는 아름다운 이름인 스텔라, 릴리안, 로사리아, 레지나를 기억해 주세요. 다음 주에는 오늘 배운 이름들로 재미있는 카드 게임을 해볼 거예요. 두 손을 모으고 성모송을 바치며 오늘 수업을 마치겠습니다.</div>
         </div>
     </div>
@@ -491,18 +476,18 @@
             </div>
         </div>
         <div class="module m0-border">
-            <span class="module-label">[M0] 오프닝 (2분)</span>
+            <span class="module-label">M0 오프닝 (2분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 친구들, 지난주에 배운 성모님의 이름 기억하나요. 바다의 별인 스텔라, 백합인 릴리안, 묵주기도의 성모님인 로사리아, 여왕이신 레지나가 있었어요. 오늘은 이 4가지 이름이 그려진 카드로 짝꿍과 함께 같은 그림 찾기 게임을 하겠습니다.</div>
         </div>
         <div class="module m3-border">
-            <span class="module-label">[M3] 성모님 이름 카드 게임 (11분)</span>
+            <span class="module-label">M3 성모님 이름 카드 게임 (11분)</span>
             <div class="action-instruction">행동 지시: 교재에 있는 16장의 그림 카드를 미리 뜯어내어 짝꿍과 마주 앉게 합니다.</div>
             <div class="script-row"><span class="speaker">교사:</span> 교재에 적힌 게임 방법을 설명해 줄게요. 첫째, 카드를 잘 섞어서 뒷면이 보이게 책상 위에 넓게 펼쳐 놓습니다. 둘째, 자기 차례가 되면 카드를 두 장씩 차례대로 뒤집습니다.</div>
             <div class="script-row"><span class="speaker">교사:</span> 셋째, 만약 뒤집은 두 장의 그림이 같은 이름의 성모님이면 그 카드를 가져가고, 그림이 다르면 원래 있던 자리에 다시 뒷면이 보이게 뒤집어 놓습니다. 넷째, 바닥에 놓인 카드가 모두 없어질 때까지 친구와 번갈아 가며 진행합니다. 카드를 더 많이 모은 친구가 이기는 게임이에요.</div>
             <div class="action-instruction">교사 순회 지도: 아이들이 게임을 시작하면 곁에서 차분히 지켜보며, 카드를 잃고 속상해하는 친구가 없도록 돕고 규칙을 안내합니다.</div>
         </div>
         <div class="module m4-border">
-            <span class="module-label">[M4] 정리 및 마침 기도 (2분)</span>
+            <span class="module-label">M4 정리 및 마침 기도 (2분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 모두 즐겁게 게임을 마쳤네요. 카드를 정리해서 교재 사이에 잘 꽂아두기 바랍니다. 한 달 동안 성모님에 대해 배우며, 우리도 성모님처럼 예수님을 사랑하는 마음을 갖기로 다짐합시다. 교재 아래쪽에 있는 마침 기도를 함께 바치겠습니다.</div>
             <div class="script-row"><span class="all-speaker">교사/아동 다 함께:</span> 우리를 사랑하시는 성모님, 저희도 성모님을 닮아 하느님과 이웃을 사랑할 수 있도록 저희를 위해 기도해 주세요. 아멘.</div>
         </div>
@@ -517,19 +502,19 @@
             </div>
         </div>
         <div class="module m0-border">
-            <span class="module-label">[M0] 오프닝 및 시작 기도 (3분)</span>
+            <span class="module-label">M0 오프닝 및 시작 기도 (3분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 친구들, 한 주 동안 잘 지냈나요. 바른 자세로 앉아 오늘 준비된 교재를 펴보겠습니다. 6월은 예수님의 따뜻한 마음을 특별히 기억하는 달입니다. 교재 첫 페이지에 있는 시작 기도를 두 손 모으고 바치겠습니다.</div>
             <div class="script-row"><span class="all-speaker">교사/아동 다 함께:</span> 우리를 누구보다 사랑하시는 예수님, 저희가 예수 성심께 감사드리는 하느님의 자녀가 될 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.</div>
         </div>
         <div class="module m2-border">
-            <span class="module-label">[M2] 영상 시청 및 핵심 교리 (8분)</span>
+            <span class="module-label">M2 영상 시청 및 핵심 교리 (8분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 6월은 '예수 성심 성월'입니다. 예수 성심은 우리를 아주 많이 사랑하시는 예수님의 거룩한 마음을 뜻해요. 예수님의 마음이 어떤 모습인지 먼저 준비된 영상을 함께 시청하겠습니다. 화면을 바르게 보아주세요.</div>
             <div class="action-instruction">영상 시청: 유튜브 '초등부 예수 성심 성월' 시청</div>
             <a href="https://youtu.be/SA6SJKnVfBg?si=JrLfIJtVFTjtHibC" target="_blank" class="video-btn">▶️ 예수 성심 영상 보기</a>
             <div class="script-row"><span class="speaker">교사:</span> 영상을 잘 보았나요. 옛날에 알라코크라는 수녀님이 기도하실 때 예수님께서 나타나셔서 당신의 사랑 가득한 마음을 보여주셨어요. 예수님은 우리가 짓는 잘못에도 불구하고 우리를 용서하시고, 모든 것을 내어주실 만큼 우리를 깊이 사랑하십니다. 교회는 이 크신 사랑에 감사드리기 위해 6월을 예수 성심 성월로 지내고 있어요.</div>
         </div>
         <div class="module m4-border">
-            <span class="module-label">[M4] 정리 및 마침 (4분)</span>
+            <span class="module-label">M4 정리 및 마침 (4분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 오늘 배운 내용을 간단히 확인해 볼게요. 맞으면 동그라미(O), 틀리면 엑스표(X)를 손으로 만들어주세요.</div>
             <div class="script-row"><span class="speaker">교사:</span> 첫 번째 문제, 6월은 예수님의 사랑의 마음을 공경하는 예수 성심 성월이다. (정답: O)</div>
             <div class="script-row"><span class="speaker">교사:</span> 두 번째 문제, 예수 성심은 우리를 혼내고 벌하시는 마음이다. (정답: X, 우리를 사랑하시고 용서하시는 마음입니다)</div>
@@ -546,11 +531,11 @@
             </div>
         </div>
         <div class="module m0-border">
-            <span class="module-label">[M0] 오프닝 및 복습 (3분)</span>
+            <span class="module-label">M0 오프닝 및 복습 (3분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 친구들, 지난주에 6월이 어떤 달이라고 배웠는지 기억하나요. 네, 예수님의 크신 사랑을 기억하는 예수 성심 성월입니다. 예수님은 우리에게 그 사랑을 여러 가지 행동으로 보여주셨어요. 오늘은 교재를 보며 알맞은 스티커를 붙여보겠습니다.</div>
         </div>
         <div class="module m2-border">
-            <span class="module-label">[M2] 예수님 사랑 스티커 활동 (8분)</span>
+            <span class="module-label">M2 예수님 사랑 스티커 활동 (8분)</span>
             <div class="action-instruction">행동 지시: 6월 예수 성심 성월 붙임 딱지를 준비시킵니다.</div>
             <div class="script-row"><span class="speaker">교사:</span> 교재를 보고 알맞은 스티커를 찾아 붙여봅시다. 첫 번째는 '용서하시는 예수님'입니다. 예수님은 십자가에 못 박히는 아픔 속에서도 자신을 아프게 한 사람들을 용서하셨어요. 십자가 그림이 있는 스티커를 붙여주세요.</div>
             <div class="script-row"><span class="speaker">교사:</span> 두 번째는 '치유하시는 예수님'입니다. 예수님은 몸과 마음이 아픈 사람들을 따뜻하게 고쳐 주셨어요. 앉아있는 아픈 사람을 일으켜 주시는 스티커를 찾아 붙여봅시다.</div>
@@ -558,7 +543,7 @@
             <div class="script-row"><span class="speaker">교사:</span> 마지막 네 번째는 '모든 것을 내어 주시는 예수님'입니다. 예수님은 미사 때 우리가 모시는 성체와 성혈로 당신의 몸과 피를 우리에게 주셨어요. 빵과 잔이 그려진 스티커를 붙여주세요.</div>
         </div>
         <div class="module m4-border">
-            <span class="module-label">[M4] 정리 퀴즈 및 마침 (4분)</span>
+            <span class="module-label">M4 정리 퀴즈 및 마침 (4분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 스티커를 모두 바르게 붙여주었습니다. 교재 아래쪽의 '기억해요' 퀴즈를 풀어볼게요. 질문을 듣고 교재의 O, X에 동그라미를 쳐보세요.</div>
             <div class="script-row"><span class="speaker">교사:</span> 예수 성심은 몸과 마음이 아픈 사람들을 고쳐 주셔요. 정답은 무엇일까요? 네, O입니다. O에 동그라미 쳐주세요.</div>
             <div class="script-row"><span class="speaker">교사:</span> 예수 성심은 성체성사를 통해 우리에게 모든 것을 내어주셔요. 정답은 O입니다. O에 표시해 주세요. 예수님의 4가지 사랑을 기억하며 다음 주에 만나요.</div>
@@ -574,11 +559,11 @@
             </div>
         </div>
         <div class="module m0-border">
-            <span class="module-label">[M0] 오프닝 (2분)</span>
+            <span class="module-label">M0 오프닝 (2분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 친구들, 지난 시간에 우리는 용서하시고, 고쳐주시고, 모든 것을 내어주시는 예수님의 사랑에 대해 배웠습니다. 오늘은 우리도 예수님께 사랑하는 마음을 표현하기 위해 '입체 하트'를 만들어 볼 거예요.</div>
         </div>
         <div class="module m3-border">
-            <span class="module-label">[M3] 입체 하트 만들기 활동 (11분)</span>
+            <span class="module-label">M3 입체 하트 만들기 활동 (11분)</span>
             <div class="action-instruction">행동 지시: 교재의 '활동해요' 페이지를 펼치고, 가위 없이 손으로 뜯는 도안임을 안내합니다.</div>
             <div class="script-row"><span class="speaker">교사:</span> 오늘 만들기는 위험한 가위가 필요 없습니다. 먼저 교재에 있는 빨간색 하트 도안과 두 손이 그려진 도안을 선을 따라 조심조심 손으로 뜯어내어 주세요. 종이가 찢어지지 않게 천천히 해봅시다.</div>
             <div class="action-instruction">교사 순회 지도: 아이들이 도안을 뜯어낼 때 곁에서 차분히 돕습니다.</div>
@@ -587,7 +572,7 @@
             <div class="script-row"><span class="speaker">교사:</span> 두 손 위에 사랑의 하트가 예쁘게 담겼습니다. 이 하트는 예수님을 사랑하는 우리 친구들의 마음이에요.</div>
         </div>
         <div class="module m4-border">
-            <span class="module-label">[M4] 정리 및 마침 기도 (2분)</span>
+            <span class="module-label">M4 정리 및 마침 기도 (2분)</span>
             <div class="script-row"><span class="speaker">교사:</span> 완성한 작품을 내 책상 위에 잘 놓아두고, 예수님의 마음을 본받아 우리도 친구와 가족을 사랑하기로 다짐합시다. 내가 만든 하트를 두 손으로 조심스럽게 들고 마침 기도를 바치겠습니다.</div>
             <div class="script-row"><span class="all-speaker">교사/아동 다 함께:</span> 사랑이신 주님, 저희도 예수 성심에 사랑과 믿음으로 보답할 수 있게 해 주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.</div>
         </div>
@@ -595,15 +580,14 @@
 
 </main>
 
-
 <script>
-    // 사이드바 열고 닫기 함수
+    // 모바일 환경 메뉴 열고 닫기
     function toggleMenu() {
         document.querySelector('nav').classList.toggle('open');
         document.getElementById('overlay').classList.toggle('open');
     }
 
-    // 메뉴 클릭 시 해당 페이지 열기 기능
+    // 메뉴 클릭 시 해당 페이지 열기
     function openPage(pageId) {
         // 모든 페이지 숨기기
         const pages = document.querySelectorAll('.page');
@@ -620,10 +604,10 @@
             document.getElementById('link-' + pageId).classList.add('active');
         }
 
-        // 메인 영역 스크롤 맨 위로 이동
+        // 스크롤 맨 위로 이동
         document.getElementById('main-content').scrollTop = 0;
 
-        // 모바일 환경일 경우, 교안을 선택하면 사이드바 자동 닫기
+        // 모바일 화면일 경우 메뉴를 선택하면 자동으로 사이드바 닫기
         if(window.innerWidth <= 768) {
             document.querySelector('nav').classList.remove('open');
             document.getElementById('overlay').classList.remove('open');
