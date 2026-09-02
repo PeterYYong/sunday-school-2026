@@ -19,6 +19,7 @@ frame.addEventListener('load',()=>{
   const doc=frame.contentDocument||frame.contentWindow.document;if(!doc)return;
   const heroText=doc.querySelector('.home-hero p');if(heroText)heroText.remove();
   const sourceNote=doc.querySelector('.source-note');if(sourceNote)sourceNote.remove();
+  const archive=doc.querySelector('.archive-link');if(archive){archive.href='index.html#semester1';archive.target='_top';archive.textContent='↩ 2026 1학기 교안 보기';}
   const style=doc.createElement('style');style.textContent='.portal-video-embed{margin:18px 0 24px;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 8px 24px rgba(0,0,0,.12);aspect-ratio:16/9}.portal-video-embed iframe{width:100%;height:100%;border:0;display:block}.portal-video-fallback{margin:-12px 0 22px;font-size:.9rem;color:#6b7280}.portal-video-fallback a{color:#c62828;font-weight:800}';doc.head.appendChild(style);
   const seen=new Set();
   [...doc.querySelectorAll('a[href*="youtube.com"],a[href*="youtu.be"]')].forEach(a=>{
