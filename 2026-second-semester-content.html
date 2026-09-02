@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="2026년 2학기 우산동성당 초등부 주일학교 교사 교안 포털">
+<meta name="theme-color" content="#9a5b2e">
+<title>2026 2학기 우산동성당 초등부 주일학교 교안</title>
+<style>
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+:root {
+  --bg:#f7f3ec; --paper:#fffdf9; --ink:#2f2a25; --muted:#776e65; --line:#e6ded2;
+  --accent:#9a5b2e; --teacher:#a24f1f;
+  --martyr:#b54a43; --sacrament:#b8860b; --rosary:#3f78a8; --soul:#76518f; --advent:#59436f; --reconciliation:#6d625c;
+  --green:#4f7b62; --shadow:0 12px 32px rgba(55,43,31,.08);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; height:100vh; overflow:hidden; display:flex;
+  font-family:'Pretendard','Noto Sans KR',system-ui,-apple-system,sans-serif;
+  color:var(--ink); background:var(--bg); word-break:keep-all; overflow-wrap:break-word;
+}
+button,a{font:inherit}
+button{color:inherit}
+#sidebar{
+  width:320px; flex:0 0 320px; overflow-y:auto; background:rgba(255,253,249,.98);
+  border-right:1px solid var(--line); padding:22px 18px 28px; z-index:1000;
+}
+.brand{display:flex;gap:12px;align-items:center;padding:10px 10px 18px;border-bottom:1px solid var(--line);cursor:pointer}
+.brand-cross{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#f3e8d8;color:var(--accent);font-size:22px;font-weight:800}
+.brand strong{display:block;font-size:1.03rem}
+.brand small{display:block;color:var(--muted);margin-top:4px;line-height:1.35}
+.nav-group{margin:22px 10px 8px;color:#9a9188;font-size:.78rem;font-weight:800;letter-spacing:.08em}
+.nav-link,.archive-link{
+ display:block;text-decoration:none;color:#514a44;border-radius:12px;padding:11px 12px;margin:5px 0;border:1px solid transparent;transition:.16s ease;
+}
+.nav-link:hover,.nav-link.active{background:#f7efe4;border-color:#ead7bf;color:#7b431e;transform:translateX(2px)}
+.home-link{margin-top:15px;font-weight:800}
+.date-badge{display:block;color:#9b8b7d;font-size:.72rem;margin-bottom:4px}
+.nav-divider{height:1px;background:var(--line);margin:22px 6px 14px}
+.archive-link{font-size:.88rem;color:var(--muted);background:#f7f5f1}
+main{flex:1;overflow-y:auto;padding:38px 42px 64px;position:relative}
+.page{display:none;max-width:980px;margin:0 auto}
+.page.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:.25;transform:translateY(8px)}to{opacity:1;transform:none}}
+.mobile-topbar{display:none}
+.overlay{display:none}
+
+.home-hero{
+ background:linear-gradient(135deg,#80502d,#b87d46);color:white;border-radius:24px;padding:44px 42px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+}
+.home-hero:after{content:"✝";position:absolute;right:28px;bottom:-45px;font-size:180px;opacity:.08;font-weight:900}
+.home-kicker{font-size:.85rem;font-weight:800;letter-spacing:.08em;opacity:.82}
+.home-hero h1{font-size:2.25rem;line-height:1.24;margin:10px 0 12px;max-width:760px}
+.home-hero p{margin:0;opacity:.9;font-size:1.04rem}
+.source-note{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:22px 24px;margin:24px 0;box-shadow:0 6px 18px rgba(55,43,31,.04)}
+.source-note h1{font-size:1.08rem;margin:0 0 8px}
+.source-note p{color:var(--muted);margin:0;line-height:1.65}
+.section-heading{display:flex;justify-content:space-between;align-items:end;margin:32px 2px 14px}
+.section-heading h2{font-size:1.35rem;margin:0}
+.section-heading span{font-size:.84rem;color:var(--muted)}
+.card-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.lesson-card{
+ text-align:left;background:var(--paper);border:1px solid var(--line);border-top:6px solid var(--line);border-radius:18px;padding:22px;cursor:pointer;
+ box-shadow:0 6px 18px rgba(55,43,31,.045);transition:.2s ease;min-height:166px;display:flex;flex-direction:column;
+}
+.lesson-card:hover{transform:translateY(-3px);box-shadow:var(--shadow)}
+.card-martyr{border-top-color:var(--martyr)} .card-sacrament{border-top-color:var(--sacrament)} .card-rosary{border-top-color:var(--rosary)}
+.card-soul{border-top-color:var(--soul)} .card-advent{border-top-color:var(--advent)} .card-reconciliation{border-top-color:var(--reconciliation)}
+.card-date{font-size:.78rem;color:var(--muted);font-weight:800}
+.card-kicker{font-size:.77rem;color:#9a9188;margin-top:5px}
+.card-title{font-size:1.08rem;font-weight:800;line-height:1.45;margin-top:10px}
+.card-arrow{margin-top:auto;padding-top:15px;color:var(--accent);font-size:.82rem;font-weight:800}
+
+.lesson-hero{padding:34px 36px;border-radius:22px;color:white;margin-bottom:22px;box-shadow:var(--shadow)}
+.hero-martyr{background:linear-gradient(135deg,#8f3631,var(--martyr))}
+.hero-sacrament{background:linear-gradient(135deg,#8f6800,var(--sacrament))}
+.hero-rosary{background:linear-gradient(135deg,#2f6088,var(--rosary))}
+.hero-soul{background:linear-gradient(135deg,#5e3e77,var(--soul))}
+.hero-advent{background:linear-gradient(135deg,#403052,var(--advent))}
+.hero-reconciliation{background:linear-gradient(135deg,#514945,var(--reconciliation))}
+.eyebrow{font-size:.82rem;font-weight:800;opacity:.82;letter-spacing:.04em}
+.lesson-hero h1{font-size:1.8rem;line-height:1.42;margin:8px 0 0}
+.hero-tools{display:flex;gap:8px;margin-top:20px}
+.hero-tools button{border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.12);color:white;border-radius:10px;padding:8px 11px;cursor:pointer}
+.hero-tools button:hover{background:rgba(255,255,255,.2)}
+
+.lesson-content{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:30px 34px;box-shadow:0 6px 18px rgba(55,43,31,.04);line-height:1.76}
+.lesson-content > p:first-child{margin-top:0}
+.lesson-content h3{font-size:1.16rem;margin:32px 0 13px;padding-top:4px;color:#4d433b}
+.lesson-content h4{
+ margin:26px 0 12px;padding:12px 14px;background:#f6f2eb;border-left:5px solid #b99f7d;border-radius:0 10px 10px 0;font-size:1.02rem;
+}
+.lesson-content p{margin:10px 0}
+.lesson-content ul,.lesson-content ol{padding-left:1.45rem}
+.lesson-content li{margin:7px 0}
+.lesson-content strong{font-weight:850}
+.lesson-content em{color:#756b61}
+.lesson-content a{color:#315f93;text-underline-offset:3px}
+.lesson-content a.video-url{color:#b52b26;font-weight:750;text-decoration:underline;text-underline-offset:3px}
+.lesson-content a.video-url:hover{color:#8f1f1b}
+.action-instruction{display:flex;gap:10px;align-items:flex-start;background:#fff4e8;border:1px dashed #d9a66d;border-radius:12px;padding:12px 14px;margin:15px 0;color:#865024;font-size:.92rem}
+.action-instruction strong{white-space:nowrap}
+.action-instruction.neutral{background:#f7f4ef;border-color:#cfc3b6;color:#665c53}
+.lesson-content blockquote{margin:16px 0;padding:12px 18px;border-left:4px solid #c8b299;background:#faf7f2;color:#5e554d}
+.lesson-content hr{border:0;border-top:1px solid var(--line);margin:30px 0}
+.pager{display:grid;grid-template-columns:1fr auto 1fr;gap:10px;margin-top:18px}
+.pager button{border:1px solid var(--line);background:var(--paper);border-radius:12px;padding:11px 14px;cursor:pointer}
+.pager button:first-child{justify-self:start} .pager button:last-child{justify-self:end}
+.pager button:hover{background:#f3eee7}
+
+@media (max-width:820px){
+ body{display:block;height:auto;overflow:auto}
+ #sidebar{position:fixed;left:-110%;top:0;height:100vh;width:min(86vw,320px);transition:left .25s ease;box-shadow:10px 0 30px rgba(0,0,0,.14)}
+ #sidebar.open{left:0}
+ .overlay.open{display:block;position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:999}
+ main{padding:0 16px 46px;overflow:visible}
+ .mobile-topbar{display:flex;position:sticky;top:0;z-index:900;margin:0 -16px 18px;padding:11px 12px;justify-content:space-between;align-items:center;background:rgba(255,253,249,.94);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+ .mobile-topbar span{font-weight:850;font-size:.94rem}
+ .mobile-topbar button{border:1px solid var(--line);background:white;border-radius:9px;padding:7px 10px;cursor:pointer}
+ .page{max-width:none}
+ .home-hero{border-radius:18px;padding:30px 22px}
+ .home-hero h1{font-size:1.68rem}
+ .card-grid{grid-template-columns:1fr}
+ .lesson-card{min-height:150px}
+ .lesson-hero{padding:26px 22px;border-radius:18px}
+ .lesson-hero h1{font-size:1.38rem}
+ .lesson-content{padding:23px 18px;border-radius:16px}
+ .lesson-content h3{font-size:1.1rem}
+ .lesson-content h4{font-size:.98rem}
+ .pager{grid-template-columns:1fr 1fr}
+ .pager button:nth-child(2){display:none}
+}
+@media print{
+ body{display:block;height:auto;overflow:visible;background:white}
+ #sidebar,.mobile-topbar,.overlay,.hero-tools,.pager{display:none!important}
+ main{padding:0;overflow:visible}
+ .page{display:none!important;max-width:none}
+ .page.active{display:block!important}
+ .lesson-hero{box-shadow:none;border-radius:0;margin:0 0 14px}
+ .lesson-content{box-shadow:none;border:0;padding:0}
+ a{color:inherit!important;text-decoration:none!important}
+}
+</style>
+</head>
+<body>
+<nav id="sidebar" aria-label="교안 메뉴">
+<div class="brand" onclick="openPage('home')" role="button" tabindex="0">
+<span class="brand-cross">✝</span><div><strong>우산동성당</strong><small>2026 2학기 초등부 주일학교</small></div>
+</div>
+<a class="home-link nav-link" id="link-home" href="#home" onclick="openPage('home'); return false;">🏠 교안 홈</a>
+<div class="nav-group">9월</div>
+<a class="nav-link" id="link-p1" href="#p1" onclick="openPage('p1'); return false;"><span class="date-badge">9월 12일 순교자 성월</span>믿음의 소년, 유대철 베드로</a>
+<div class="nav-group">10월</div>
+<a class="nav-link" id="link-p2" href="#p2" onclick="openPage('p2'); return false;"><span class="date-badge">10월 3일 칠성사</span>하느님의 선물, 일곱 가지 성사</a>
+<a class="nav-link" id="link-p3" href="#p3" onclick="openPage('p3'); return false;"><span class="date-badge">10월 10일</span>묵주기도 1차: 묵주기도와 4가지 신비</a>
+<a class="nav-link" id="link-p4" href="#p4" onclick="openPage('p4'); return false;"><span class="date-badge">10월 31일</span>묵주기도 2차: 신비 카드 게임과 마음의 묵상</a>
+<div class="nav-group">11월</div>
+<a class="nav-link" id="link-p5" href="#p5" onclick="openPage('p5'); return false;"><span class="date-badge">11월 7일</span>위령성월 1차: 영혼의 쉼터, 연옥과 우리의 기도</a>
+<a class="nav-link" id="link-p6" href="#p6" onclick="openPage('p6'); return false;"><span class="date-badge">11월 14일</span>위령성월 2차: 하트 기도 사다리 만들기</a>
+<div class="nav-group">12월</div>
+<a class="nav-link" id="link-p7" href="#p7" onclick="openPage('p7'); return false;"><span class="date-badge">12월 1주차</span>대림 성탄 1차: 깨어 기다리는 기쁨</a>
+<a class="nav-link" id="link-p8" href="#p8" onclick="openPage('p8'); return false;"><span class="date-badge">12월 2주차</span>대림 성탄 2차: 동방박사의 예물과 찬양</a>
+<a class="nav-link" id="link-p9" href="#p9" onclick="openPage('p9'); return false;"><span class="date-badge">어린이 판공 교리</span>예수님을 만날 마음의 준비</a>
+<div class="nav-divider"></div>
+<a class="archive-link" href="2026-first-semester.html">↩ 2026 1학기 교안 보기</a>
+</nav>
+<main id="main-content">
+  <div id="overlay" class="overlay" onclick="toggleMenu()"></div>
+  <div class="mobile-topbar">
+    <button onclick="toggleMenu()">☰ 메뉴</button>
+    <span>2026 2학기 교안</span>
+    <button onclick="openPage('home')">🏠 홈</button>
+  </div>
+
+  <section id="home" class="page active">
+    <div class="home-hero">
+      <div class="home-kicker">USAN-DONG CATHOLIC CHURCH · SUNDAY SCHOOL</div>
+      <h1>2026 2학기 우산동성당<br>초등부 주일학교 교안</h1>
+      <p>교사가 수업 직전에 바로 열어 대본·활동·영상을 확인할 수 있는 교안 포털</p>
+    </div>
+    <div class="source-note"><h1>2학기 초등부 고학년 주일학교 교안 모음 (유튜브 영상 링크 포함)</h1>
+<p>본 교안은 『천주교 주일학교 교안 제작 매뉴얼』과 지침서의 기준 및 일반 규칙을 준수하여 작성되었습니다. 교사가 대본을 그대로 읽으면서 진행할 수 있도록 구성된 상세 대본형 교안입니다.</p>
+<hr />
+</div>
+    <div class="section-heading"><h2>2학기 교안</h2><span>총 9개 수업</span></div>
+    <div class="card-grid"><button class="lesson-card card-martyr" onclick="openPage('p1')"><span class="card-date">9월 12일 순교자 성월</span><span class="card-kicker">순교자 성월</span><span class="card-title">믿음의 소년, 유대철 베드로</span><span class="card-arrow">교안 열기 →</span></button>
+<button class="lesson-card card-sacrament" onclick="openPage('p2')"><span class="card-date">10월 3일 칠성사</span><span class="card-kicker">칠성사</span><span class="card-title">하느님의 선물, 일곱 가지 성사</span><span class="card-arrow">교안 열기 →</span></button>
+<button class="lesson-card card-rosary" onclick="openPage('p3')"><span class="card-date">10월 10일</span><span class="card-kicker">묵주기도 성월</span><span class="card-title">묵주기도 1차: 묵주기도와 4가지 신비</span><span class="card-arrow">교안 열기 →</span></button>
+<button class="lesson-card card-rosary" onclick="openPage('p4')"><span class="card-date">10월 31일</span><span class="card-kicker">묵주기도 성월</span><span class="card-title">묵주기도 2차: 신비 카드 게임과 마음의 묵상</span><span class="card-arrow">교안 열기 →</span></button>
+<button class="lesson-card card-soul" onclick="openPage('p5')"><span class="card-date">11월 7일</span><span class="card-kicker">위령성월</span><span class="card-title">위령성월 1차: 영혼의 쉼터, 연옥과 우리의 기도</span><span class="card-arrow">교안 열기 →</span></button>
+<button class="lesson-card card-soul" onclick="openPage('p6')"><span class="card-date">11월 14일</span><span class="card-kicker">위령성월</span><span class="card-title">위령성월 2차: 하트 기도 사다리 만들기</span><span class="card-arrow">교안 열기 →</span></button>
+<button class="lesson-card card-advent" onclick="openPage('p7')"><span class="card-date">12월 1주차</span><span class="card-kicker">대림·성탄</span><span class="card-title">대림 성탄 1차: 깨어 기다리는 기쁨</span><span class="card-arrow">교안 열기 →</span></button>
+<button class="lesson-card card-advent" onclick="openPage('p8')"><span class="card-date">12월 2주차</span><span class="card-kicker">대림·성탄</span><span class="card-title">대림 성탄 2차: 동방박사의 예물과 찬양</span><span class="card-arrow">교안 열기 →</span></button>
+<button class="lesson-card card-reconciliation" onclick="openPage('p9')"><span class="card-date">어린이 판공 교리</span><span class="card-kicker">판공 교리</span><span class="card-title">예수님을 만날 마음의 준비</span><span class="card-arrow">교안 열기 →</span></button></div>
+  </section>
+
+  
+<section id="p1" class="page lesson-page" data-theme="martyr">
+  <div class="lesson-hero hero-martyr">
+    <div class="eyebrow">순교자 성월 · 9월 12일 순교자 성월</div>
+    <h1>📌 [9월 12일 순교자 성월] 믿음의 소년, 유대철 베드로 (15분)</h1>
+    <div class="hero-tools">
+      <button onclick="window.print()">🖨️ 인쇄</button>
+      <button onclick="copyLessonLink('p1', this)">🔗 링크 복사</button>
+    </div>
+  </div>
+  <article class="lesson-content">
+    <ul>
+<li><strong>학습 목표:</strong> 소년 성인 유대철 베드로의 순교 이야기를 통해 굳건한 신앙의 의미를 이해하고, 일상 속에서 그리스도인으로서 신앙의 용기를 실천할 방법을 성찰한다.</li>
+<li><strong>준비물:</strong> 9월 순교자 성월 활동지('알아봐요' 및 '기억해요' 페이지), 9월 순교자 성월 붙임 딱지(스티커), 영상 시청 장비</li>
+<li><strong>유튜브 영상:</strong> <strong>[초등부] 순교자 성월</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=hAchjDe2NAc" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=hAchjDe2NAc</a>)</li>
+</ul>
+<h3>⏱️ 세부 진행 대본</h3>
+<h4>[M0] 오프닝 및 시작 기도 (3분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>아이들을 차분하고 다정하게 맞이하며 활동지를 나누어 줍니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 한 주 동안 잘 지냈나요? 2학기 첫 교리 시간이 시작되었습니다. 오늘부터 우리는 9월의 주제인 '순교자 성월'에 대해 배울 거예요. 먼저 마음을 정돈하고, 활동지 첫 페이지에 있는 시작 기도를 함께 바치며 교리를 시작하겠습니다. 두 손을 모아주세요.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;하느님 사랑의 모범이신 예수님, 저희도 순교성인들처럼 굳건한 믿음으로 하느님을 사랑할 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<h4>[M2] 영상 시청 및 핵심 교리 선포 (8분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>전면 스크린에 준비된 유튜브 영상을 상영합니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;9월은 우리 신앙의 선조들이 하느님을 위해 목숨을 바치며 믿음을 지킨 '순교자 성월'입니다. 이 시기가 우리에게 어떤 의미가 있는지, 준비된 영상을 함께 시청하겠습니다. 화면을 바르게 보아주세요.&quot;</li>
+<li><em>(영상 시청: <strong>[초등부] 순교자 성월</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=hAchjDe2NAc" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=hAchjDe2NAc</a>) 시청 - 약 3분)</em></li>
+<li><strong>교사:</strong> &quot;영상을 통해 순교의 참된 의미를 마음에 새겨보았습니다. 이제 활동지의 '알아봐요' 페이지에 있는 '순교자 신문'을 함께 볼까요? 오늘 우리가 만날 성인은 여러분과 나이가 비슷한 <strong>14세의 어린 나이에 순교하신 소년 성인 유대철 베드로</strong>입니다.&quot;</li>
+<li><strong>교사:</strong> &quot;신문 기사에 빈칸이 세 군데 비어 있네요. 선생님의 설명을 들으며 알맞은 붙임 딱지(스티커)를 찾아서 함께 붙여보겠습니다.&quot;
+<em>(행동 지시: 첫 번째 '효자 순교자' 붙임 딱지를 보여주며)</em></li>
+<li><strong>교사:</strong> &quot;첫 번째 칸입니다. 유대철 베드로는 천주교를 반대하는 어머니의 심한 괴롭힘 속에서도 원망하지 않고 어머니의 영혼을 위해 기도했습니다. <strong>'어머니, 저는 어머니를 위해 기도하겠습니다.'</strong>라고 적힌 붙임 딱지를 첫 번째 칸에 붙여주세요.&quot;
+<em>(행동 지시: 두 번째 '굳건한 신앙과 용기' 붙임 딱지를 보여주며)</em></li>
+<li><strong>교사:</strong> &quot;두 번째 칸입니다. 감옥에 갇힌 유대철 베드로에게 사람들은 하느님을 믿지 않으면 살려주겠다고 혹독한 고문과 형벌을 내렸습니다. 하지만 베드로는 용감하게 응답했습니다. <strong>'그렇게 한다고 제가 하느님을 버릴 줄 아세요?'</strong> 스티커를 두 번째 칸에 꾹 눌러 붙여봅시다.&quot;
+<em>(행동 지시: 세 번째 '신앙의 모범' 붙임 딱지를 보여주며)</em></li>
+<li><strong>교사:</strong> &quot;마지막 세 번째 칸입니다. 고통 속에서도 베드로는 하느님께 감사하는 마음을 잃지 않았습니다. <strong>'예수님께서 겪으신 고통을 저도 조금은 알 것 같습니다. 저도 이런 고통을 겪게 해 주시니 감사합니다.'</strong>라고 말하며 당당하게 믿음을 고백했습니다. 마지막 스티커를 붙여주세요.&quot;</li>
+<li><strong>교사:</strong> &quot;친구들, 여러분과 비슷한 나이의 소년이 어떻게 이런 고통 속에서도 굳건하게 신앙을 지킬 수 있었을까요? 유대철 베드로는 예수님이 자신을 얼마나 사랑하시는지 마음 깊이 알고 있었고, 예수님과 아주 친밀한 우정을 나누고 있었기 때문에 죽음 앞에서도 당당할 수 있었습니다.&quot;</li>
+</ul>
+<h4>[M4] 정리 및 마침 기도 (4분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>활동지 하단의 '기억해요' 영역을 가리킵니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;그럼 오늘 배운 유대철 베드로 성인의 이야기를 기억하며 하단의 '기억해요' 선 긋기를 해보겠습니다. 연필을 들고 알맞은 내용끼리 선으로 연결해 보세요.&quot;<ul>
+<li><em>선 긋기 정답:</em><ul>
+<li>&quot;9월은 순교 성인들을 기억하는&quot; ➡️ &quot;순교자 성월이에요.&quot;</li>
+<li>&quot;유대철 베드로는&quot; ➡️ &quot;14세 어린 나이에 순교하셨어요.&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><strong>교사:</strong> &quot;모두 바르게 잘 연결해 주었습니다. 우리 일상 속에서도 작은 신앙의 용기가 필요할 때가 있어요. 친구들이 험담을 하거나 나쁜 행동을 할 때 휩쓸리지 않고 '이것은 하느님이 원하시는 행동이 아니야' 하고 멈추는 것, 성당에 다니는 것을 부끄러워하지 않는 것이 바로 우리가 실천할 수 있는 굳건한 신앙의 모습입니다. 일상에서 그리스도인답게 당당하게 행동하기로 약속하며, 활동지 하단의 마침 기도를 두 손 모아 함께 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;신앙의 모범이신 순교자들이여, 순교 성인들의 모범을 본받아 저희도 하느님을 사랑할 수 있도록 함께 기도해 주세요. 아멘.&quot;</li>
+</ul>
+<hr />
+
+  </article>
+  <div class="pager">
+    <button onclick="openPage('home')">← 이전</button>
+    <button onclick="openPage('home')">교안 홈</button>
+    <button onclick="openPage('p2')">다음 →</button>
+  </div>
+</section>
+
+<section id="p2" class="page lesson-page" data-theme="sacrament">
+  <div class="lesson-hero hero-sacrament">
+    <div class="eyebrow">칠성사 · 10월 3일 칠성사</div>
+    <h1>📌 [10월 3일 칠성사] 하느님의 선물, 일곱 가지 성사 (15분)</h1>
+    <div class="hero-tools">
+      <button onclick="window.print()">🖨️ 인쇄</button>
+      <button onclick="copyLessonLink('p2', this)">🔗 링크 복사</button>
+    </div>
+  </div>
+  <article class="lesson-content">
+    <ul>
+<li><strong>학습 목표:</strong> 영상을 시청하며 성사의 의미를 이해하고, 우리 삶의 소중한 순간마다 함께하는 일곱 가지 성사(칠성사)의 이름과 뜻을 안다.</li>
+<li><strong>준비물:</strong> 특별2 칠성사 활동지('알아봐요' 및 '기억해요' 페이지), 칠성사 붙임 딱지(스티커), 영상 시청 장비</li>
+<li><strong>유튜브 영상:</strong> <strong>[장애인신앙교육부] 2022년 교리영상 _ 1-1과 성사</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=FhOQCUWTWs4" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=FhOQCUWTWs4</a>)</li>
+</ul>
+<h3>⏱️ 세부 진행 대본</h3>
+<h4>[M0] 오프닝 및 시작 기도 (3분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>아이들을 차분하고 다정하게 맞이하며 활동지를 나누어 줍니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 한 주 동안 잘 지냈나요? 가을 하늘이 참 맑고 예쁜 10월이 시작되었습니다. 이번 주에는 우리 가톨릭 신자들에게 하느님께서 주시는 아주 특별한 일곱 가지 선물인 '칠성사'에 대해 배울 거예요. 먼저 마음을 차분히 정돈하고, 활동지 표지에 있는 시작 기도를 함께 바치며 교리를 시작하겠습니다. 두 손을 모아주세요.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;성사를 통해 하느님을 알도록 이끌어주시는 예수님, 성사가 하느님이 주시는 큰 은총임을 저희가 깨달을 수 있게 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<h4>[M2] 영상 시청 및 핵심 교리 선포 (8분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>전면 스크린에 준비된 유튜브 영상을 상영합니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 혹시 하느님의 사랑이나 은총이 우리 눈에 보이나요? 보이지 않지요. 보이지 않는 하느님의 사랑을 우리가 눈으로 보고 온몸으로 느낄 수 있도록 특별한 예식으로 선물해 주신 것이 바로 <strong>'성사'</strong>입니다. 성사가 무엇인지 준비된 영상을 통해 먼저 만나보겠습니다.&quot;</li>
+<li><em>(영상 시청: <strong>[장애인신앙교육부] 2022년 교리영상 _ 1-1과 성사</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=FhOQCUWTWs4" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=FhOQCUWTWs4</a>) 시청 - 약 3분)</em></li>
+<li><strong>교사:</strong> &quot;영상을 잘 보았나요? 예수님께서 직접 만드셔서 우리에게 전해주신 성사는 모두 7개이며, 이를 줄여서 <strong>'칠성사'</strong>라고 부릅니다. 이제 활동지의 '알아봐요' 페이지를 함께 보며 스티커를 붙여보겠습니다.&quot;
+<em>(행동 지시: 알맞은 스티커를 차례대로 안내하며)</em></li>
+</ul>
+<ol>
+<li><strong>세례성사:</strong> 하느님의 자녀로 새로 태어나는 첫 번째 성사</li>
+<li><strong>견진성사:</strong> 성령의 힘을 받아 더욱 굳건한 신앙인이 되도록 도와주는 성사</li>
+<li><strong>성체성사:</strong> 예수님의 몸과 피를 우리 영혼의 양식으로 받아 모시는 성사</li>
+<li><strong>고해성사:</strong> 우리가 지은 잘못과 죄를 고백하고 용서받는 성사</li>
+<li><strong>혼인성사:</strong> 남자와 여자가 사랑을 약속하며 부부가 되는 성사</li>
+<li><strong>성품성사:</strong> 하느님과 교회를 위해 봉사할 신부님으로 축성받는 성사</li>
+<li><strong>병자성사:</strong> 아픈 사람들이 하느님의 따뜻한 위로와 힘을 받는 성사</li>
+</ol>
+<ul>
+<li><strong>교사:</strong> &quot;하느님께서는 우리가 살아가는 모든 중요한 순간마다 성사를 통해 늘 곁에서 은총을 가득 채워주고 계십니다.&quot;</li>
+</ul>
+<h4>[M4] 정리 및 마침 기도 (4분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>활동지 하단의 '기억해요' 영역을 가리킵니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;아래쪽 '기억해요' 문제를 조용히 읽고 알맞은 괄호 속 표시(O, X)에 동그라미를 쳐보겠습니다.&quot;
+<ol>
+<li>&quot;하느님의 자녀로 새로 태어나는 첫 번째 성사는 세례성사에요. (정답: O)&quot;</li>
+<li>&quot;예수님의 몸과 피를 영혼의 양식으로 받아 모시는 거룩한 성사는 성체성사에요. (정답: O)&quot;</li>
+</ol>
+</li>
+<li><strong>교사:</strong> &quot;우리는 이미 하느님의 자녀가 되는 '세례성사'를 받았습니다. 오늘 밤에는 잠들기 전 가만히 눈을 감고, 나에게 이 예쁜 세례명을 지어주신 하느님께 감사의 마음을 고백해 보기로 해요. 그럼 마침 기도를 두 손 모아 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;사랑이신 주님, 저희가 성사를 통해 은총을 내려주시는 하느님께 감사드릴 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<hr />
+
+  </article>
+  <div class="pager">
+    <button onclick="openPage('p1')">← 이전</button>
+    <button onclick="openPage('home')">교안 홈</button>
+    <button onclick="openPage('p3')">다음 →</button>
+  </div>
+</section>
+
+<section id="p3" class="page lesson-page" data-theme="rosary">
+  <div class="lesson-hero hero-rosary">
+    <div class="eyebrow">묵주기도 성월 · 10월 10일</div>
+    <h1>📌 [10월 10일] 묵주기도 1차: 묵주기도와 4가지 신비 (15분)</h1>
+    <div class="hero-tools">
+      <button onclick="window.print()">🖨️ 인쇄</button>
+      <button onclick="copyLessonLink('p3', this)">🔗 링크 복사</button>
+    </div>
+  </div>
+  <article class="lesson-content">
+    <ul>
+<li><strong>학습 목표:</strong> 10월 묵주기도 성월의 역사적 유래를 이해하고, 묵주기도의 4가지 신비(환희, 빛, 고통, 영광)의 의미를 알아본 뒤 스티커 활동과 퀴즈로 기억할 수 있다.</li>
+<li><strong>준비물:</strong> 10월 묵주기도 성월 활동지('알아봐요' 및 '기억해요' 페이지), 10월 묵주기도 성월 붙임 딱지(스티커), 영상 시청 장비</li>
+<li><strong>유튜브 영상:</strong> <strong>[초등부] 묵주 기도 성월</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=6PUSMbAzaDA" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=6PUSMbAzaDA</a>)</li>
+</ul>
+<h3>⏱️ 세부 진행 대본</h3>
+<h4>[M0] 오프닝 및 시작 기도 (3분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 한 주 동안 잘 지냈나요? 이번 한 달 동안 우리는 성모님과 함께 기도를 바치는 특별한 달인 '묵주기도 성월'에 대해 배울 거예요. 마음을 정돈하고, 활동지 첫 페이지에 있는 시작 기도를 함께 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;묵주기도의 어머니 마리아님, 저희가 묵주기도를 바칠 때마다 성모님과 함께 기도하는 것임을 잊지 않게 도와주세요. 아멘.&quot;</li>
+</ul>
+<h4>[M2] 영상 시청 및 핵심 교리 선포 (8분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>전면 스크린에 준비된 유튜브 영상을 상영합니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;10월이 왜 묵주기도 성월이 되었는지, 그리고 우리가 바치는 묵주기도의 의미는 무엇인지 준비된 영상을 함께 시청하겠습니다. 화면을 바르게 보아주세요.&quot;</li>
+<li><em>(영상 시청: <strong>[초등부] 묵주 기도 성월</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=6PUSMbAzaDA" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=6PUSMbAzaDA</a>) 시청 - 약 3분)</em></li>
+<li><strong>교사:</strong> &quot;묵주기도를 뜻하는 '로사리오'는 라틴어로 '장미 꽃다발'이라는 뜻이에요. 묵주알을 하나씩 굴리며 성모송을 바칠 때마다, 성모님께 예쁜 장미꽃 한 송이를 드리는 것이지요. 이제 활동지의 '알아봐요' 페이지를 보며 4가지 신비 스티커를 붙여보겠습니다.&quot;
+<em>(행동 지시: 알맞은 스티커를 붙이며)</em></li>
+</ul>
+<ol>
+<li><strong>환희의 신비:</strong> 예수님이 우리 세상에 태어나시고 어린 시절을 보내신 기쁜 사건들을 성모님의 <strong>'기쁨'</strong>과 함께 기억하는 신비</li>
+<li><strong>빛의 신비:</strong> 예수님이 세례를 받으시고 하느님 나라를 선포하시며, 예수님이 하느님의 <strong>'아드님'</strong>이심을 보여주신 특별한 일들을 묵상하는 신비</li>
+<li><strong>고통의 신비:</strong> 예수님이 우리를 너무나 사랑하셔서 <strong>'십자가'</strong>에서 돌아가신 고통을 묵상하는 신비</li>
+<li><strong>영광의 신비:</strong> 죽음을 이기신 예수님이 부활하여 <strong>'하늘'</strong>로 올라가신 일과, 성모님이 하늘의 <strong>'여왕'</strong>이 되신 가장 영광스러운 일들을 묵상하는 신비</li>
+</ol>
+<h4>[M4] 정리 및 마침 기도 (4분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;아래쪽 '기억해요' 문제를 읽고 알맞은 괄호 속 단어에 동그라미를 쳐보겠습니다.&quot;
+<ol>
+<li>&quot;예수님이 하느님의 아드님이심을 기억하는 신비는 <strong>빛의 신비</strong>입니다. '빛의 신비'에 동그라미 하세요.&quot;</li>
+<li>&quot;예수님이 우리를 위해 돌아가셨음을 기억하는 신비는 <strong>고통의 신비</strong>입니다. '고통의 신비'에 동그라미 하세요.&quot;</li>
+</ol>
+</li>
+<li><strong>교사:</strong> &quot;선생님이 문제를 낼 테니 맞으면 동그라미(O), 틀리면 가슴 앞으로 엑스표(X)를 손으로 만들어주세요. '묵주기도는 성모님을 하느님처럼 흠숭하며 성모님에게만 바치는 기도이다.' 하나, 둘, 셋! (정답: 엑스표 - 묵주기도는 성모님과 '함께' 하느님께 바치는 기도입니다.)&quot;</li>
+<li><strong>교사:</strong> &quot;모두 훌륭하게 잘 맞추어 주었습니다. 다음 주에는 오늘 배운 4가지 신비 그림 카드를 가지고 즐거운 게임 활동을 해보겠습니다. 활동지 하단의 마침 기도를 함께 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;묵주기도의 어머니 마리아님, 묵주기도를 통해 저희가 예수님을 더 깊이 사랑할 수 있게 도와주세요. 아멘.&quot;</li>
+</ul>
+<hr />
+
+  </article>
+  <div class="pager">
+    <button onclick="openPage('p2')">← 이전</button>
+    <button onclick="openPage('home')">교안 홈</button>
+    <button onclick="openPage('p4')">다음 →</button>
+  </div>
+</section>
+
+<section id="p4" class="page lesson-page" data-theme="rosary">
+  <div class="lesson-hero hero-rosary">
+    <div class="eyebrow">묵주기도 성월 · 10월 31일</div>
+    <h1>📌 [10월 31일] 묵주기도 2차: 신비 카드 게임과 마음의 묵상 (15분)</h1>
+    <div class="hero-tools">
+      <button onclick="window.print()">🖨️ 인쇄</button>
+      <button onclick="copyLessonLink('p4', this)">🔗 링크 복사</button>
+    </div>
+  </div>
+  <article class="lesson-content">
+    <ul>
+<li><strong>학습 목표:</strong> 가위 없이 뜯어 쓰는 묵주기도 신비 카드를 분류하는 게임을 통해 4가지 신비를 내면화하고, 일상에서 가장 필요한 신비를 찾아 성찰할 수 있다.</li>
+<li><strong>준비물:</strong> 10월 묵주기도 성월 활동지('활동해요' 페이지 및 그림 카드 세트)</li>
+</ul>
+<h3>⏱️ 세부 진행 대본</h3>
+<h4>[M0] 오프닝 및 시작 기도 (3분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 지난 한 주간 약속한 대로 성모송을 바치며 예수님 사랑을 기억해 보았나요? 오늘은 지난주에 배운 예수님과 성모님의 4가지 신비 카드를 가지고 짝꿍과 함께 기쁜 활동을 진행해 볼 거예요. 두 손을 예쁘게 모으고 시작 기도를 함께 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;묵주기도의 어머니 마리아님, 저희가 묵주기도를 바칠 때마다 성모님과 함께 기도하는 것임을 잊지 않게 도와주세요. 아멘.&quot;</li>
+</ul>
+<h4>[M3] 교리 공작소 및 게임 (10분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>활동지의 '활동해요' 설명과 하트 도안을 보여주며 진행합니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;활동지의 '활동해요' 페이지를 함께 보겠습니다. 오늘은 다칠 위험이 있는 가위 대신, 손으로 톡톡 뜯어낼 수 있는 안전한 그림 카드가 준비되어 있어요. 선을 따라 그림 카드 16장을 조심스럽게 손으로 먼저 뜯어내어 보겠습니다.&quot;
+<em>(교사 순회 지도: 학생들이 카드를 찢지 않고 차분히 뜯어낼 수 있도록 곁에서 돕습니다.)</em></li>
+<li><strong>교사:</strong> &quot;이제 짝꿍과 마주 앉아서 책상 위에 16장의 카드를 뒤집어 놓아보세요. 신호에 맞춰 카드를 앞면으로 빠르게 뒤집은 후, 같은 신비(환희, 빛, 고통, 영광)를 나타내는 카드 4장을 찾아 빠르게 한 곳에 묶음으로 분류해 봅시다.&quot;
+<em>(활동 시간 동안 학생들이 서로 배려하며 규칙을 준수하도록 격려합니다.)</em></li>
+<li><strong>교사:</strong> &quot;분류를 마친 친구들은 이제 책상 위에 내가 모은 카드를 한 번 조용히 보아주세요. 지금 이 순간, 나의 일상에서 예수님의 어떤 사랑의 모습이 가장 필요할까요? 기쁘고 따뜻한 위로가 필요할 때는 '환희의 신비' 카드를, 지혜롭게 행동하고 싶을 때는 '빛의 신비' 카드를, 몸과 마음이 힘들고 아플 때는 예수님의 위로를 뜻하는 '고통의 신비' 카드를, 희망과 용기를 얻고 싶을 때는 '영광의 신비' 카드를 한 장 가만히 골라서 손에 쥐어봅시다.&quot;
+<em>(행동 지시: 학생들이 침묵 속에서 자신만의 실존적 카드 한 장을 고르고 마음을 정리할 수 있도록 약 1분간 조용한 시간을 제공합니다.)</em></li>
+<li><strong>교사:</strong> &quot;내가 선택한 그 신비 카드를 통해, 성모님께서 지금 여러분의 마음에 가장 어울리는 위로와 생명의 은총을 예수님께 대신 청해주실 거예요.&quot;</li>
+</ul>
+<h4>[M4] 정리 및 마침 기도 (2분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;오늘 우리가 사용한 그림 카드는 교재 사이에 소중히 잘 보관해서 집으로 가져갑니다. 성모님과 예수님 곁에 다가가는 친구들이 되기를 바라며, 활동지 하단의 마침 기도를 두 손 모아 함께 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;묵주기도의 어머니 마리아님, 묵주기도를 통해 저희가 예수님을 더 깊이 사랑할 수 있게 도와주세요. 아멘.&quot;</li>
+</ul>
+<hr />
+
+  </article>
+  <div class="pager">
+    <button onclick="openPage('p3')">← 이전</button>
+    <button onclick="openPage('home')">교안 홈</button>
+    <button onclick="openPage('p5')">다음 →</button>
+  </div>
+</section>
+
+<section id="p5" class="page lesson-page" data-theme="soul">
+  <div class="lesson-hero hero-soul">
+    <div class="eyebrow">위령성월 · 11월 7일</div>
+    <h1>📌 [11월 7일] 위령성월 1차: 영혼의 쉼터, 연옥과 우리의 기도 (15분)</h1>
+    <div class="hero-tools">
+      <button onclick="window.print()">🖨️ 인쇄</button>
+      <button onclick="copyLessonLink('p5', this)">🔗 링크 복사</button>
+    </div>
+  </div>
+  <article class="lesson-content">
+    <ul>
+<li><strong>학습 목표:</strong> 영상을 시청하며 죽음의 그리스도교적 의미를 이해하고, 천국, 지옥, 연옥의 개념과 연옥 영혼을 위해 기도해야 하는 이유를 설명할 수 있다.</li>
+<li><strong>준비물:</strong> 11월 위령성월 활동지('알아봐요' 및 '기억해요' 페이지), 위령성월 붙임 딱지(스티커), 영상 시청 장비</li>
+<li><strong>유튜브 영상:</strong> <strong>[초등부] 위령성월</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=VeFlTM-g1C4" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=VeFlTM-g1C4</a>)</li>
+</ul>
+<h3>⏱️ 세부 진행 대본</h3>
+<h4>[M0] 오프닝 및 시작 기도 (3분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 한 주 동안 잘 지냈나요? 교회는 11월을 세상을 떠난 이들의 영혼을 기억하며 기도하는 특별한 달인 '위령성월'로 지내고 있어요. 마음을 정돈하고, 활동지 첫 페이지에 있는 시작 기도를 함께 바치며 오늘 교리를 시작하겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;모든 영혼의 구원을 바라시는 예수님, 저희의 기도를 들어주시어 연옥 영혼들이 하루빨리 천국에 올라갈 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<h4>[M2] 영상 시청 및 핵심 교리 선포 (8분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>전면 스크린에 준비된 유튜브 영상을 상영합니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;세상을 떠난 영혼들이 머무는 곳은 어디일까요? 그리고 우리는 왜 그분들을 위해 기도해야 할까요? 먼저 준비된 영상을 함께 시청하겠습니다. 화면을 바르게 보아주세요.&quot;</li>
+<li><em>(영상 시청: <strong>[초등부] 위령성월</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=VeFlTM-g1C4" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=VeFlTM-g1C4</a>) 시청 - 약 3분)</em></li>
+<li><strong>교사:</strong> &quot;영상을 잘 보았나요? 죽음을 맞이할 때 영혼은 세 갈래의 길로 가게 됩니다. 하느님을 믿고 사랑하며 그분 뜻에 따라 살았던 영혼은 <strong>천국</strong>으로 가고, 하느님의 뜻에 어긋나게 살았던 영혼은 <strong>지옥</strong>으로 갑니다. 그렇다면 <strong>연옥</strong>은 어떤 곳일까요? 하느님을 믿었지만, 아직 죄를 완전히 씻지 못했거나 남은 잘못이 있는 영혼들이 머물며 깨끗하게 정화하는 곳이에요.&quot;</li>
+<li><strong>교사:</strong> &quot;이 연옥에 있는 영혼들을 우리는 '연옥 영혼' 또는 '연령'이라고 불러요. 이분들은 스스로를 위해 기도할 수 없기 때문에, 세상에 살아있는 우리들의 기도가 꼭 필요합니다. 활동지 빈칸에 알맞은 스티커를 찾아 붙여보겠습니다.&quot;
+<em>(행동 지시: 지옥, 연옥, 연옥 영혼, 우리의 기도, 천국 스티커를 빈칸에 차례대로 붙이도록 안내합니다.)</em></li>
+<li><strong>교사:</strong> &quot;우리가 바치는 기도와 희생은 연옥 영혼들이 천국으로 가기 위한 소중한 선물이 됩니다. 가톨릭 신자로서 죽음은 끝이 아니라, 하느님 나라의 문으로 들어가는 새로운 생명의 시작임을 기억합시다.&quot;</li>
+</ul>
+<h4>[M4] 정리 퀴즈 및 마침 기도 (4분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;배운 내용을 기억하며 아래쪽 '기억해요' 문제를 읽고 알맞은 괄호 속 표시(O, X)에 동그라미를 쳐보겠습니다.&quot;
+<ol>
+<li>&quot;‘연옥’은 연옥 영혼이 죄를 씻어 내는 곳이에요. (정답: O)&quot;</li>
+<li>&quot;우리의 기도가 연옥 영혼이 천국에 더 빨리 들어가는 데 도움을 줄 수 있어요. (정답: O)&quot;</li>
+</ol>
+</li>
+<li><strong>교사:</strong> &quot;우리가 하루에 세 번 자연스럽게 연옥 영혼들을 위해 기도할 수 있는 방법이 있어요. 바로 '식사 후 기도'입니다. 이번 주에는 밥을 먹고 나서 식사 후 기도를 빼놓지 않고 바치기로 약속해요. 그럼 다 함께 마침 기도를 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;천국에서 저희와 함께하기를 바라시는 예수님, 저희가 하느님 보시기에 착하고 바르게 살아 천국의 기쁨과 행복을 누릴 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<hr />
+
+  </article>
+  <div class="pager">
+    <button onclick="openPage('p4')">← 이전</button>
+    <button onclick="openPage('home')">교안 홈</button>
+    <button onclick="openPage('p6')">다음 →</button>
+  </div>
+</section>
+
+<section id="p6" class="page lesson-page" data-theme="soul">
+  <div class="lesson-hero hero-soul">
+    <div class="eyebrow">위령성월 · 11월 14일</div>
+    <h1>📌 [11월 14일] 위령성월 2차: 하트 기도 사다리 만들기 (15분)</h1>
+    <div class="hero-tools">
+      <button onclick="window.print()">🖨️ 인쇄</button>
+      <button onclick="copyLessonLink('p6', this)">🔗 링크 복사</button>
+    </div>
+  </div>
+  <article class="lesson-content">
+    <ul>
+<li><strong>학습 목표:</strong> 먼저 세상을 떠난 이들을 성찰하고, 가위 없이 뜯어 만드는 하트 기도 사다리를 통해 그들을 향한 연대와 기도를 직접 봉헌한다.</li>
+<li><strong>준비물:</strong> 11월 위령성월 활동지('활동해요' 페이지 및 하트 도안), 풀, 필기구</li>
+</ul>
+<h3>⏱️ 세부 진행 대본</h3>
+<h4>[M0] 오프닝 및 시작 기도 (3분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 지난 한 주간 식사 후 기도를 바치며 연옥 영혼들을 기억해 보았나요? 오늘은 먼저 세상을 떠난 가족이나 친지, 혹은 우리가 알지 못하더라도 기도가 필요한 연옥 영혼들을 위해 아주 특별한 '하트 기도 사다리'를 만들어 볼 거예요. 먼저 시작 기도를 함께 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;모든 영혼의 구원을 바라시는 예수님, 저희의 기도를 들어주시어 연옥 영혼들이 하루빨리 천국에 올라갈 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<h4>[M3] 교리 공작소 활동 (10분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>활동지의 '활동해요' 설명과 하트 도안을 보여주며 진행합니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;활동지의 '활동해요' 페이지를 함께 펼쳐보겠습니다. 오늘 만들기는 다칠 위험이 있는 가위를 전혀 쓰지 않습니다. 손으로 톡톡 뜯어낼 수 있게 준비된 다섯 개의 하트 도안을 조심스럽게 손으로 먼저 뜯어내겠습니다.&quot;
+<em>(교사 순회 지도: 학생들이 종이를 찢지 않고 차분히 도안을 뜯을 수 있도록 곁에서 돕습니다.)</em></li>
+<li><strong>교사:</strong> &quot;다 뜯은 친구들은 이제 하트 안에 적힌 '____의 영혼을 위해 기도합니다'라는 빈칸에 세상을 떠난 분들의 이름을 적어볼 거예요. 먼저 돌아가신 할머니나 할아버지, 혹은 기억하고 싶은 친척의 이름을 적어보세요. 특별히 기억할 분이 없다면 '연옥 영혼들'이라고 적어주어도 아주 훌륭한 기도가 됩니다.&quot;
+<em>(행동 지시: 학생들이 차분히 성찰하며 이름을 적을 수 있도록 1~2분간 정돈된 분위기를 유지합니다.)</em></li>
+<li><strong>교사:</strong> &quot;이름을 다 적은 친구들은 이제 조립을 해볼게요. 첫째, 하트 도안을 정중앙 점선을 따라 반으로 접어줍니다. 둘째, 하트의 접힌 부분 안쪽으로 다른 하트의 뾰족한 아래쪽이 오도록 겹쳐주고 풀을 발라서 차례차례 아래로 연결해 줍니다.&quot;</li>
+<li><strong>교사:</strong> &quot;그러면 우리의 기도가 담긴 예쁜 하트들이 사다리 모양으로 이어지게 됩니다. 우리가 연결한 하트 하나하나가 연옥 영혼들이 천국으로 올라갈 수 있도록 돕는 징검다리가 되어줄 거예요.&quot;</li>
+</ul>
+<h4>[M4] 정리 및 마침 기도 (2분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;내가 만든 기도 사다리를 잘 보이는 곳에 걸어두고, 매일 세상을 떠난 이들을 위해 한 번씩 마음을 모아 기도하기로 약속해요. 활동지 하단의 마침 기도를 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;천국에서 저희와 함께하기를 바라시는 예수님, 저희가 하느님 보시기에 착하고 바르게 살아 천국의 기쁨과 행복을 누릴 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<hr />
+
+  </article>
+  <div class="pager">
+    <button onclick="openPage('p5')">← 이전</button>
+    <button onclick="openPage('home')">교안 홈</button>
+    <button onclick="openPage('p7')">다음 →</button>
+  </div>
+</section>
+
+<section id="p7" class="page lesson-page" data-theme="advent">
+  <div class="lesson-hero hero-advent">
+    <div class="eyebrow">대림·성탄 · 12월 1주차</div>
+    <h1>📌 [12월 1주차] 대림 성탄 1차: 깨어 기다리는 기쁨 (15분)</h1>
+    <div class="hero-tools">
+      <button onclick="window.print()">🖨️ 인쇄</button>
+      <button onclick="copyLessonLink('p7', this)">🔗 링크 복사</button>
+    </div>
+  </div>
+  <article class="lesson-content">
+    <ul>
+<li><strong>학습 목표:</strong> 대림 시기 4주간의 전례적 의미와 참회 및 기다림의 자세를 이해하고 성찰할 수 있다.</li>
+<li><strong>준비물:</strong> 12월 대림 성탄 활동지, 영상 시청 장비</li>
+<li><strong>유튜브 영상:</strong> <strong>[장애인신앙교육부] 2022년 교리영상 12과 대림, 성탄</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=vZFpF780cWQ" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=vZFpF780cWQ</a>)</li>
+</ul>
+<h3>⏱️ 세부 진행 대본</h3>
+<h4>[M0] 오프닝 및 시작 기도 (3분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 한 주 동안 잘 지냈나요? 드디어 12월이 시작되면서 우리 교회는 아기 예수님의 탄생을 기다리는 무척 설레고 기쁜 시기인 대림 시기를 보내고 있습니다. 마음을 깨끗이 정돈하고, 시작 기도를 함께 바치며 교리를 시작하겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;우리를 위해 이 땅에 오신 예수님, 예수님의 그 사랑을 마음에 새기며 감사드릴 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<h4>[M2] 영상 시청 및 핵심 교리 선포 (8분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>전면 스크린에 준비된 유튜브 영상을 상영합니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;아기 예수님을 맞이하기 위해 우리는 어떤 마음으로 대림 시기를 보내야 할까요? 준비된 영상을 바른 자세로 함께 시청해 보겠습니다. 화면을 바르게 보아주세요.&quot;</li>
+<li><em>(영상 시청: <strong>[장애인신앙교육부] 2022년 교리영상 12과 대림, 성탄</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=vZFpF780cWQ" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=vZFpF780cWQ</a>) 시청 - 약 3분)</em></li>
+<li><strong>교사:</strong> &quot;영상을 잘 보았나요? 대림 시기는 주님 성탄 대축일인 12월 25일 전 4주간을 말하는데, 대림 1주는 <strong>'깨어 있을 것'</strong>, 2주는 죄를 용서받는 <strong>'회개'</strong>, 3주는 구세주 오실 날이 가까웠으니 <strong>'기뻐하라'</strong>, 마지막 4주는 <strong>'예수님 탄생 예고'</strong>의 전례적 의미가 있습니다.&quot;</li>
+<li><strong>교사:</strong> &quot;성탄절은 단순히 선물을 받는 날이 아니라, 예수님께서 우리를 사랑하시기 때문에 사람의 모습으로 태어나 세상 모든 사람을 구원해 주셨음을 기억하고 감사하는 날입니다. 우리가 깨어서 예수님을 기다린다는 것은, 내 마음에 남을 미워하는 마음이나 나쁜 습관이라는 먼지가 쌓이지 않도록 깨끗하게 청소해 두는 것입니다.&quot;</li>
+</ul>
+<h4>[M4] 정리 및 마침 기도 (4분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;조용히 눈을 감고 생각해보겠습니다. 아기 예수님이 내 마음에 오실 수 있도록 내가 이번 주에 실천할 수 있는 한 가지는 무엇일까요? 고해성사를 정성껏 준비하거나, 친구에게 따뜻한 위로의 말을 건네는 결심을 가만히 정해봅시다. 이번 주 동안 예쁘게 행하기로 약속하며 마침 기도를 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;사랑이신 예수님, 아기 예수님을 만나기 위해 별을 따라 먼 길을 떠난 동방박사들처럼, 저희도 예수님을 찾고자 하는 마음을 갖게 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<hr />
+
+  </article>
+  <div class="pager">
+    <button onclick="openPage('p6')">← 이전</button>
+    <button onclick="openPage('home')">교안 홈</button>
+    <button onclick="openPage('p8')">다음 →</button>
+  </div>
+</section>
+
+<section id="p8" class="page lesson-page" data-theme="advent">
+  <div class="lesson-hero hero-advent">
+    <div class="eyebrow">대림·성탄 · 12월 2주차</div>
+    <h1>📌 [12월 2주차] 대림 성탄 2차: 동방박사의 예물과 찬양 (15분)</h1>
+    <div class="hero-tools">
+      <button onclick="window.print()">🖨️ 인쇄</button>
+      <button onclick="copyLessonLink('p8', this)">🔗 링크 복사</button>
+    </div>
+  </div>
+  <article class="lesson-content">
+    <ul>
+<li><strong>학습 목표:</strong> 동방박사들이 아기 예수님께 드린 세 가지 예물(황금, 유향, 몰약)에 담긴 신학적 의미를 알고, 성탄을 기뻐하는 수어 찬양을 배울 수 있다.</li>
+<li><strong>준비물:</strong> 12월 대림 성탄 활동지('알아봐요' 및 '활동해요' 페이지), 12월 대림 성탄 붙임 딱지(스티커)</li>
+</ul>
+<h3>⏱️ 세부 진행 대본</h3>
+<h4>[M0] 오프닝 및 시작 기도 (2분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 한 주 동안 약속한 실천을 하며 아기 예수님을 잘 기다려보았나요? 오늘은 아기 예수님이 태어나셨을 때, 밤하늘의 특별한 별을 보고 아주 먼 길을 걸어와 소중한 예물을 바친 동방박사들의 이야기를 배워보겠습니다. 시작 기도를 함께 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;우리를 위해 이 땅에 오신 예수님, 예수님의 그 사랑을 마음에 새기며 감사드릴 수 있도록 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<h4>[M2] 핵심 교리 선포 및 활동 (9분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>활동지의 '알아봐요: 동방박사 세 사람' 페이지를 펼치고 붙임 딱지를 준비시킵니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;동방박사 세 사람이 아기 예수님께 드린 특별한 선물이 무엇인지 붙임 딱지를 찾아 붙이며 알아봅시다.&quot;<ul>
+<li><strong>황금 스티커:</strong> 가장 귀한 보물인 황금은 아기 예수님이 온 세상을 다스리시는 진정한 <strong>왕</strong>이심을 뜻합니다. (멜키오르 아래에 부착)</li>
+<li><strong>유향 스티커:</strong> 하느님께 제사를 지낼 때 향기로운 연기를 피우는 도구인 유향은, 예수님이 <strong>하느님</strong>이심을 뜻합니다. (가스파르 아래에 부착)</li>
+<li><strong>몰약 스티커:</strong> 상처를 치료하는 약인 몰약은, 예수님이 우리를 위해 십자가에서 <strong>돌아가실 분</strong>이라는 희생을 보여줍니다. (발타사르 아래에 부착)</li>
+</ul>
+</li>
+<li><strong>교사:</strong> &quot;이제 아래쪽 '기억해요' 퀴즈를 보며 알맞은 것끼리 선을 가만히 이어보겠습니다.&quot;<ul>
+<li><em>선 긋기 정답:</em><ul>
+<li>&quot;하늘의 특별한 별을 보고 예수님을 찾아 나선 사람들&quot; ➡️ &quot;동방박사&quot;</li>
+<li>&quot;동방박사가 아기 예수님께 드린 특별한 선물&quot; ➡️ &quot;황금, 유향, 몰약&quot;</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h4>[M3] 교리 공작소 활동 (2분)</h4>
+<div class="action-instruction"><strong>행동 지시:</strong><span>활동지 뒷면의 '활동해요' 페이지를 가리킵니다.</span></div>
+<ul>
+<li><strong>교사:</strong> &quot;활동지 뒤편을 보면 찬양곡이 나옵니다. 우리는 이 찬양을 손동작을 사용하는 아름다운 수어로 함께 표현해볼 것입니다. 수어로 찬양하는 것은 온 몸과 정성을 다해 하느님께 바치는 훌륭한 기도가 됩니다. 그림에 나와 있는 손동작에 맞추어 차분하게 한 단어씩 따라 해봅시다.&quot;
+<em>(교사 시연: 교사가 수어 동작을 한 소절씩 천천히 시범 보이고, 아동들이 손동작을 편안하게 1~2회 연습하도록 돕습니다.)</em></li>
+</ul>
+<h4>[M4] 정리 및 마침 기도 (2분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;다가올 성탄절에 우리가 아기 예수님께 드릴 수 있는 가장 아름다운 예물은 미워하는 친구를 용서하는 마음이나 착한 생활이 될 것입니다. 나만의 소중한 선물을 마음속으로 생각하며, 활동지 하단의 마침 기도를 두 손 모아 함께 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;사랑이신 예수님, 아기 예수님을 만나기 위해 별을 따라 먼 길을 떠난 동방박사들처럼, 저희도 예수님을 찾고자 하는 마음을 갖게 도와주세요. 우리 주 예수 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+<hr />
+
+  </article>
+  <div class="pager">
+    <button onclick="openPage('p7')">← 이전</button>
+    <button onclick="openPage('home')">교안 홈</button>
+    <button onclick="openPage('p9')">다음 →</button>
+  </div>
+</section>
+
+<section id="p9" class="page lesson-page" data-theme="reconciliation">
+  <div class="lesson-hero hero-reconciliation">
+    <div class="eyebrow">판공 교리 · 어린이 판공 교리</div>
+    <h1>📌 [어린이 판공 교리] 예수님을 만날 마음의 준비 (5~10분)</h1>
+    <div class="hero-tools">
+      <button onclick="window.print()">🖨️ 인쇄</button>
+      <button onclick="copyLessonLink('p9', this)">🔗 링크 복사</button>
+    </div>
+  </div>
+  <article class="lesson-content">
+    <ul>
+<li><strong>학습 목표:</strong> 판공성사가 예수님의 부활을 기쁘게 맞이하기 위해 마음을 깨끗이 하는 소중한 약속임을 이해한다.</li>
+<li><strong>준비물:</strong> 영상 시청 장비</li>
+<li><strong>유튜브 영상:</strong> <strong>[가톨릭 양심성찰] 어린이와 청소년들을 위한 양심성찰</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=XdOJIaoMNx4" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=XdOJIaoMNx4</a>)</li>
+</ul>
+<h3>⏱️ 세부 진행 대본</h3>
+<h4>[M0] 오프닝 및 시작 기도 (2분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;친구들, 안녕하세요. 날씨가 따뜻해지는 봄이 오면 우리는 집안을 깨끗이 청소하죠? 우리 영혼도 이처럼 깨끗하게 청소해야 하는 때가 있어요. 바로 예수님의 부활을 앞둔 지금입니다. 마음을 모아 짧게 시작 기도를 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;사랑의 예수님, 제가 지은 잘못을 정직하게 돌아보고 예수님의 따뜻한 용서를 체험할 수 있도록 도와주세요. 아멘.&quot;</li>
+</ul>
+<h4>[M2] 핵심 교리 선포 및 영상 (5분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;오늘 우리가 배우는 <strong>'판공'</strong>은 가톨릭 신자로서 적어도 일 년에 한 번, 특히 예수님이 부활하시는 이 기쁜 시기에 꼭 고해성사를 보고 예수님(성체)을 모셔야 한다는 약속을 지키는 거예요. 고해성사 전에 내 마음에 어떤 잘못이 있었는지 성찰하는 데 도움을 주는 영상을 먼저 함께 보겠습니다.&quot;</li>
+<li><em>(영상 시청: <strong>[가톨릭 양심성찰] 어린이와 청소년들을 위한 양심성찰</strong> (<a class="video-url" href="https://www.youtube.com/watch?v=XdOJIaoMNx4" target="_blank" rel="noopener noreferrer">https://www.youtube.com/watch?v=XdOJIaoMNx4</a>) 시청 - 약 3분)</em></li>
+<li><strong>교사:</strong> &quot;예수님은 우리가 지은 잘못에 엑스표(X)를 치고 벌주시는 분이 아니라, 우리를 꼭 안아주시고 다시 시작할 힘을 주시는 분입니다. 영상을 보고 생각난 나의 잘못들을 고해성사를 통해 솔직히 고백하면 신부님께서 모든 먼지를 깨끗이 털어주실 거예요.&quot;</li>
+</ul>
+<h4>[M4] 성찰 및 마침 기도 (3분)</h4>
+<ul>
+<li><strong>교사:</strong> &quot;이제 조용히 눈을 감고 생각해보겠습니다. 부모님께 투정을 부리거나 친구에게 미운 말을 하지는 않았나요? 지금 이 시간, 예수님께 '예수님, 미안해요. 그리고 사랑해요'라고 마음속으로 말씀드려 봅시다.&quot;
+<em>(잠시 침묵 후)</em></li>
+<li><strong>교사:</strong> &quot;예수님께서 우리 친구들의 예쁜 마음을 이미 알고 계실 거예요. 판공성사를 통해 예수님을 만날 준비를 잘하기로 약속하며 마침 기도를 바치겠습니다.&quot;</li>
+<li><strong>교사/아동 다 함께:</strong> &quot;우리를 사랑하시는 예수님, 판공성사를 통해 제 마음이 깨끗해져서 예수님의 부활을 가장 기쁘게 맞이하게 해주세요. 우리 주 그리스도를 통하여 비나이다. 아멘.&quot;</li>
+</ul>
+
+  </article>
+  <div class="pager">
+    <button onclick="openPage('p8')">← 이전</button>
+    <button onclick="openPage('home')">교안 홈</button>
+    <button onclick="openPage('home')">다음 →</button>
+  </div>
+</section>
+
+</main>
+<script>
+function toggleMenu(forceClose=false) {
+  const nav=document.getElementById('sidebar'), ov=document.getElementById('overlay');
+  if(forceClose){nav.classList.remove('open');ov.classList.remove('open');return;}
+  nav.classList.toggle('open');ov.classList.toggle('open');
+}
+function openPage(id, updateHash=true) {
+  const target=document.getElementById(id)||document.getElementById('home');
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  target.classList.add('active');
+  document.querySelectorAll('.nav-link').forEach(el=>el.classList.remove('active'));
+  const link=document.getElementById('link-'+target.id);
+  if(link)link.classList.add('active');
+  document.getElementById('main-content').scrollTo({top:0,behavior:'smooth'});
+  toggleMenu(true);
+  if(updateHash && location.hash!=='#'+target.id) history.pushState(null,'','#'+target.id);
+}
+function copyLessonLink(id, btn) {
+  const url=location.origin+location.pathname+'#'+id;
+  navigator.clipboard.writeText(url).then(()=>{
+    const old=btn.textContent; btn.textContent='✓ 복사됨'; setTimeout(()=>btn.textContent=old,1300);
+  }).catch(()=>prompt('아래 주소를 복사하세요.',url));
+}
+window.addEventListener('popstate',()=>openPage(location.hash.slice(1)||'home',false));
+window.addEventListener('DOMContentLoaded',()=>{
+  const id=location.hash.slice(1)||'home'; openPage(id,false);
+  document.querySelectorAll('.brand').forEach(el=>el.addEventListener('keydown',e=>{if(e.key==='Enter')openPage('home')}));
+});
+</script>
+</body>
+</html>
