@@ -3,33 +3,94 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>2026 2학기 우산동성당 초등부 주일학교 교안</title>
+<title>2026 우산동성당 초등부 주일학교 교안</title>
 <style>
-body{font-family:system-ui,-apple-system,"Noto Sans KR",sans-serif;margin:0;background:#f7f3ec;color:#2f2a25}
-#status{min-height:100vh;display:grid;place-items:center;text-align:center;padding:24px}
-.card{background:#fffdf9;border:1px solid #e6ded2;border-radius:16px;padding:24px 28px;box-shadow:0 12px 32px rgba(55,43,31,.08)}
-small{display:block;color:#776e65;margin-top:8px}
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+*{box-sizing:border-box}html,body{margin:0;height:100%;font-family:Pretendard,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#f7f3ec;color:#2f2a25}body{display:flex;flex-direction:column;overflow:hidden}
+.portal-bar{height:68px;flex:0 0 68px;display:flex;align-items:center;gap:18px;padding:0 22px;background:#fffdf9;border-bottom:1px solid #e6ded2;box-shadow:0 3px 14px rgba(55,43,31,.06);z-index:20}.brand{font-weight:900;letter-spacing:-.03em;white-space:nowrap}.tabs{display:flex;gap:8px;margin-left:auto}.tab{border:1px solid #ddd3c6;background:#fff;color:#61574e;padding:10px 17px;border-radius:999px;font-weight:800;cursor:pointer;font-size:.94rem}.tab:hover{background:#f8f2e8}.tab.active{background:#9a5b2e;border-color:#9a5b2e;color:#fff}.frame-wrap{flex:1;min-height:0;position:relative}.semester-frame{width:100%;height:100%;border:0;display:block;background:#fafafa}.loading{position:absolute;inset:0;display:grid;place-items:center;background:#f7f3ec;color:#776e65;font-weight:700;z-index:5}.loading.hidden{display:none}@media(max-width:680px){.portal-bar{height:58px;flex-basis:58px;padding:0 10px;gap:8px}.brand{font-size:.88rem;max-width:44vw;overflow:hidden;text-overflow:ellipsis}.tabs{gap:5px}.tab{padding:8px 12px;font-size:.84rem}}
 </style>
 </head>
 <body>
-<div id="status"><div class="card"><strong>2026 2학기 주일학교 교안을 불러오는 중입니다.</strong><small>우산동성당 초등부</small></div></div>
+<header class="portal-bar">
+  <div class="brand">2026 우산동성당 초등부 주일학교</div>
+  <nav class="tabs" aria-label="학기 선택">
+    <button id="tab1" class="tab" type="button" onclick="openSemester(1)">1학기</button>
+    <button id="tab2" class="tab" type="button" onclick="openSemester(2)">2학기</button>
+  </nav>
+</header>
+<div class="frame-wrap">
+  <div id="loading" class="loading">교안을 불러오는 중입니다.</div>
+  <iframe id="semesterFrame" class="semester-frame" title="주일학교 교안"></iframe>
+</div>
 <script>
-(async()=>{
+const frame=document.getElementById('semesterFrame');
+const loading=document.getElementById('loading');
+let currentSemester=2;
+
+function openSemester(n){
+  currentSemester=n;
+  document.getElementById('tab1').classList.toggle('active',n===1);
+  document.getElementById('tab2').classList.toggle('active',n===2);
+  loading.classList.remove('hidden');
+  frame.src=n===1?'2026-first-semester.html':'2026-second-semester.html';
+  history.replaceState(null,'',n===1?'#semester1':'#semester2');
+}
+
+function getYoutubeId(href){
   try{
-    const r=await fetch('2026-second-semester.html',{cache:'no-store'});
-    if(!r.ok)throw new Error('교안 페이지를 불러오지 못했습니다.');
-    let html=await r.text();
-    html=html.replace(
-      "활동지의 '활동해요' 설명과 하트 도안을 보여주며 진행합니다.",
-      "교재 뒤편의 그림 카드 도안을 보여주며 안내합니다."
-    );
-    document.open();
-    document.write(html);
-    document.close();
-  }catch(e){
-    document.getElementById('status').innerHTML='<div class="card"><strong>교안을 불러오지 못했습니다.</strong><small>'+e.message+'</small></div>';
+    const u=new URL(href,location.href);
+    if(u.hostname.includes('youtu.be')) return u.pathname.replace(/^\//,'').split('/')[0];
+    if(u.hostname.includes('youtube.com')){
+      if(u.pathname==='/watch') return u.searchParams.get('v');
+      if(u.pathname.startsWith('/embed/')) return u.pathname.split('/')[2];
+    }
+  }catch(e){}
+  return null;
+}
+
+function enhanceSemester(){
+  loading.classList.add('hidden');
+  let doc;
+  try{doc=frame.contentDocument||frame.contentWindow.document;}catch(e){return;}
+  if(!doc) return;
+
+  if(currentSemester===2){
+    const heroText=doc.querySelector('.home-hero p');
+    if(heroText) heroText.remove();
+    const sourceNote=doc.querySelector('.source-note');
+    if(sourceNote) sourceNote.remove();
   }
-})();
+
+  if(!doc.getElementById('portal-video-style')){
+    const style=doc.createElement('style');
+    style.id='portal-video-style';
+    style.textContent='.portal-video-embed{margin:18px 0 24px;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 8px 24px rgba(0,0,0,.12);aspect-ratio:16/9}.portal-video-embed iframe{width:100%;height:100%;border:0;display:block}.portal-video-fallback{margin:-12px 0 22px;font-size:.9rem;color:#6b7280}.portal-video-fallback a{color:#c62828;font-weight:800}';
+    doc.head.appendChild(style);
+  }
+
+  const seen=new Set();
+  [...doc.querySelectorAll('a[href*="youtube.com"],a[href*="youtu.be"]')].forEach(a=>{
+    const id=getYoutubeId(a.href); if(!id) return;
+    const section=a.closest('section')||doc.body;
+    const key=(section.id||'page')+':'+id;
+    if(seen.has(key)||section.querySelector('[data-youtube-id="'+id+'"]')) return;
+    seen.add(key);
+    const box=doc.createElement('div');
+    box.className='portal-video-embed';
+    box.dataset.youtubeId=id;
+    box.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+id+'" title="YouTube video player" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>';
+    const fallback=doc.createElement('div');
+    fallback.className='portal-video-fallback';
+    fallback.innerHTML='영상이 재생되지 않으면 <a href="https://www.youtube.com/watch?v='+id+'" target="_blank" rel="noopener noreferrer">YouTube에서 열기</a>';
+    const anchorBlock=a.closest('li')||a.parentElement;
+    anchorBlock.insertAdjacentElement('afterend',box);
+    box.insertAdjacentElement('afterend',fallback);
+  });
+}
+
+frame.addEventListener('load',()=>{setTimeout(enhanceSemester,40)});
+const initial=location.hash==='#semester1'?1:2;
+openSemester(initial);
 </script>
 </body>
 </html>
