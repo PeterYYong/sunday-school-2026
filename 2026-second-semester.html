@@ -9,7 +9,7 @@ html,body{margin:0;width:100%;height:100%;overflow:hidden;background:#f7f3ec}ifr
 </style>
 </head>
 <body>
-<iframe id="content" src="2026-second-semester-content.html" title="2026 2학기 주일학교 교안"></iframe>
+<iframe id="content" src="2026-second-semester-content.html?v=20260905-1228" title="2026 2학기 주일학교 교안"></iframe>
 <script>
 const frame=document.getElementById('content');
 
@@ -29,13 +29,18 @@ function updateMartyrVideo(doc){
   const p1=doc.getElementById('p1');
   if(!p1) return;
   const newUrl='https://youtube.com/watch?v=tB5IhZULHsI&feature=shared';
-  p1.querySelectorAll('a[href*="hAchjDe2NAc"]').forEach(a=>{
+  const newTitle='[초등부] 유대철 베드로 성인';
+
+  p1.querySelectorAll('a.video-url, a[href*="youtube.com"], a[href*="youtu.be"]').forEach(a=>{
     a.href=newUrl;
     a.textContent=newUrl;
+    a.target='_blank';
+    a.rel='noopener noreferrer';
   });
+
   p1.querySelectorAll('strong').forEach(el=>{
-    if(el.textContent.trim()==='[초등부] 순교자 성월'){
-      el.textContent='[초등부] 유대철 베드로 성인';
+    if(el.textContent.includes('[초등부] 순교자 성월') || el.textContent.includes('[초등부] 유대철 베드로 성인')){
+      el.textContent=newTitle;
     }
   });
 }
@@ -44,16 +49,10 @@ function addSemesterSchedule(doc){
   const home=doc.getElementById('home');
   const hero=home?.querySelector('.home-hero');
   if(!home||!hero||home.querySelector('.semester-schedule')) return;
-
   const panel=doc.createElement('section');
   panel.className='semester-schedule';
   panel.innerHTML=`
-    <div class="schedule-heading">
-      <div>
-        <div class="schedule-kicker">2026 SECOND SEMESTER</div>
-        <h2>2학기 교리 일정표</h2>
-      </div>
-    </div>
+    <div class="schedule-heading"><div><div class="schedule-kicker">2026 SECOND SEMESTER</div><h2>2학기 교리 일정표</h2></div></div>
     <div class="schedule-table-wrap">
       <table class="schedule-table">
         <thead><tr><th>월</th><th>날짜</th><th>일정</th></tr></thead>
@@ -62,18 +61,15 @@ function addSemesterSchedule(doc){
           <tr><td>12일</td><td><strong>순교자 성월</strong><span>교재 및 영상 교리</span></td></tr>
           <tr><td>20일</td><td><strong>본당의 날 성지순례 참여</strong></td></tr>
           <tr><td>26일</td><td><strong>추석</strong></td></tr>
-
           <tr><th rowspan="5">10월</th><td>3일</td><td><strong>칠성사</strong><span>교재 및 영상 교리</span></td></tr>
           <tr><td>10일</td><td><strong>묵주기도</strong><span>교재 및 영상 교리</span></td></tr>
           <tr><td>17일</td><td><strong>교리 없음</strong><span>미사는 있어요!</span></td></tr>
           <tr><td>24일</td><td><strong>양떼목장 나들이</strong></td></tr>
           <tr><td>31일</td><td><strong>묵주기도 5단 바치기</strong><span>묵주 지참</span></td></tr>
-
           <tr><th rowspan="4">11월</th><td>7일</td><td><strong>위령성월</strong><span>영상교리</span></td></tr>
           <tr><td>14일</td><td><strong>위령성월</strong><span>교재</span></td></tr>
           <tr><td>21일</td><td><strong>대림</strong><span>교재 및 영상교리</span></td></tr>
           <tr><td>28일</td><td><strong>성탄 노래 연습</strong></td></tr>
-
           <tr><th rowspan="5">12월</th><td>5일</td><td><strong>은총시장</strong></td></tr>
           <tr><td>12일</td><td><strong>성탄 노래 연습</strong></td></tr>
           <tr><td>19일</td><td><strong>어린이 판공 성사</strong><span>판공 교리 후 성사 진행</span></td></tr>
@@ -109,37 +105,30 @@ function updateOctober31Lesson(doc){
       <li><strong>학습 목표:</strong> 각자 지참한 개인 묵주와 지난 시간에 만든 '신비 그림 카드'를 활용하여, 성모님과 함께 예수님의 생애를 묵상하며 묵주기도 5단을 차분하게 바칠 수 있다 [지침서, 65항].</li>
       <li><strong>준비물:</strong> 개인 묵주(친구들 각자 지참), 10월 묵주기도 성월 활동지, 지난 1차시 때 활용하고 보관해 둔 <strong>'신비 그림 카드'</strong> 중 하나(본인이 묵상하고 싶은 신비 세트 선택)</li>
     </ul>
-
     <h3>⏱️ 2차시 세부 진행 대본</h3>
-
     <h4>[M0] 오프닝 및 시작 기도 (3분) : 묵주 준비와 영적 지향</h4>
     <div class="action-instruction"><strong>행동 지시:</strong><span>교리실에 은은하고 조용한 생활 성가 연주곡을 배경음악으로 틀어놓아 차분한 분위기를 조성합니다. 친구들이 지참한 개인 묵주와 지난주에 보관한 신비 그림 카드를 책상 위에 꺼내놓도록 안내합니다 [지침서, 217항].</span></div>
     <ul>
       <li><strong>교사:</strong> "친구들, 한 주 동안 잘 지냈나요? 오늘은 10월 묵주기도 성월의 마지막 시간입니다. 지난주에 공지한 대로 오늘 우리는 각자 준비해 온 예쁜 묵주를 손에 쥐고, 성모님과 마음을 모아 예수님의 생애를 묵상하는 <strong>'묵주기도 5단'</strong>을 온전히 바쳐볼 거예요. 먼저 마음을 정돈하고, 활동지 첫 페이지에 있는 <strong>시작 기도</strong>를 함께 바치며 성모님 곁으로 다가가겠습니다. 두 손을 모아주세요."</li>
       <li><strong>교사/아동 다 함께:</strong> "묵주기도의 어머니 마리아님, 저희가 묵주기도를 바칠 때마다 성모님과 함께 기도하는 것임을 잊지 않게 도와주세요. 아멘."</li>
     </ul>
-
     <h4>[M2] 묵주기도 지향 세우기 및 준비 (2분) : 시각적 묵상과 마음 모으기</h4>
     <ul>
       <li><strong>교사:</strong> "우리가 기도를 시작하기 전에, 오늘 기도를 누구를 위해 바칠지 마음속으로 한 가지씩 기도의 지향을 정해봅시다. 아프신 할머니나 할아버지를 위해서도 좋고, 학업으로 힘들어하는 나 자신이나 가족, 혹은 위령성월을 앞두고 먼저 세상을 떠난 이들을 위한 지향도 좋습니다 [지침서, 262항]."</li>
       <li><strong>교사:</strong> "그리고 책상 위에 지난주에 뜯어 두었던 4가지 신비 카드 중, 오늘 내가 예수님과 성모님의 모습을 가장 깊이 묵상하고 싶은 신비 카드 1세트(5장)를 내 눈앞에 나란히 놓아주세요. 기도를 바치면서 그 그림 카드를 가만히 바라보면, 머릿속으로 아기 예수님의 탄생이나 십자가의 고통을 훨씬 더 깊이 생각하는 데 도움을 줄 것입니다 [매뉴얼, A3]."</li>
       <li><strong>교사:</strong> "오늘은 성모님이 우리에게 예수님의 탄생과 기쁜 순간들을 보여주시는 <strong>'환희의 신비 5단'</strong>을 함께 바치겠습니다. 다 함께 오른손에 묵주를 쥐고, 십자가에 가만히 입을 맞춘 뒤 십자성호를 그으며 기도를 시작해 봅시다."</li>
     </ul>
-
     <h4>[M3] 성모님과 함께 바치는 묵주기도 5단 (8분) : 현존과 능동적 참여</h4>
     <div class="action-instruction neutral"><strong>교사 진행 가이드:</strong><span>15분이라는 짧은 세션 시간 안에서 5단을 모두 정성스럽게 바치기 위해, 기도의 속도가 너무 처지지 않도록 교사가 차분하고 고른 템포로 전반부(앞기도)를 이끌고, 친구들이 한목소리로 후반부(뒷기도)를 바치도록 유도합니다. 5, 6학년 고학년의 호흡에 맞춰 씩씩하면서도 경건하게 기도를 이어갑니다 [지침서, 61항, 208항].</span></div>
     <ul>
       <li><strong>교사:</strong> "(성호경을 바치며) 성부와 성자와 성령의 이름으로. 아멘. (이어서 사도신경, 주님의 기도, 성모송 3번, 영광송, 구원을 비는 기도를 한목소리로 차분하게 바칩니다.)"</li>
-      <li><strong>교사:</strong> "<strong>환희의 신비 1단.</strong> 마리아께서 예수님을 잉태하심을 묵상합시다. (환희의 신비 1단 그림 카드를 바라보며) 가브리엘 천사가 전해준 하느님의 뜻에 순명하셨던 성모님의 고요하고 겸손한 마음을 묵상하며, 주님의 기도와 성모송 10번을 바칩니다."
-        <ul><li><em>(1단 기도: 교사가 앞기도를 시작하면 친구들이 뒷기도를 이어받아 10번 바친 뒤, 영광송과 구원을 비는 기도로 마무리합니다. 이하 2~5단도 동일한 유기적 호흡으로 진행합니다.)</em></li></ul>
-      </li>
+      <li><strong>교사:</strong> "<strong>환희의 신비 1단.</strong> 마리아께서 예수님을 잉태하심을 묵상합시다. (환희의 신비 1단 그림 카드를 바라보며) 가브리엘 천사가 전해준 하느님의 뜻에 순명하셨던 성모님의 고요하고 겸손한 마음을 묵상하며, 주님의 기도와 성모송 10번을 바칩니다."<ul><li><em>(1단 기도: 교사가 앞기도를 시작하면 친구들이 뒷기도를 이어받아 10번 바친 뒤, 영광송과 구원을 비는 기도로 마무리합니다. 이하 2~5단도 동일한 유기적 호흡으로 진행합니다.)</em></li></ul></li>
       <li><strong>교사:</strong> "<strong>환희의 신비 2단.</strong> 마리아께서 엘리사벳을 찾아보심을 묵상합시다. (2단 카드를 바라보며) 사촌 엘리사벳을 돕기 위해 먼 길을 기쁘게 달려가 가정을 돌보아 주셨던 성모님의 따뜻한 이웃 사랑의 마음을 기억하며 기도를 바칩니다."</li>
       <li><strong>교사:</strong> "<strong>환희의 신비 3단.</strong> 마리아께서 예수님을 낳으심을 묵상합시다. (3단 카드를 바라보며) 가장 가난하고 추운 마구간 구유에 누워 계신 아기 예수님을 따뜻하게 안아주셨던 성모님의 사랑을 기억하며 기도를 바칩니다."</li>
       <li><strong>교사:</strong> "<strong>환희의 신비 4단.</strong> 마리아께서 예수님을 성전에 바치심을 묵상합시다. (4단 카드를 바라보며) 예수님을 하느님께 기쁜 마음으로 봉헌하셨던 성모님의 순수한 믿음을 본받으며 기도를 바칩니다."</li>
       <li><strong>교사:</strong> "<strong>환희의 신비 5단.</strong> 마리아께서 잃으셨던 예수님을 성전에서 찾으심을 묵상합시다. (5단 카드를 바라보며) 성전에서 학자들과 토론하시는 예수님을 찾고 기뻐하셨던 성모님의 안도의 눈물을 묵상하며 기도를 바칩니다."</li>
       <li><em>(5단 기도가 모두 끝나면, 다 함께 성모찬송을 바치고 십자성호로 기도를 맺습니다.)</em></li>
     </ul>
-
     <h4>[M4] 정리 및 마침 기도 (2분) : 기도의 성찰과 파견</h4>
     <ul>
       <li><strong>교사:</strong> "우리가 손가락으로 묵주 알을 하나씩 굴리며 정성껏 바친 50송이의 장미 꽃다발이 성모님의 손을 거쳐 예수님께 아주 예쁘게 배달되었을 거예요. 내가 고른 신비 카드를 보며 예수님의 사랑을 머리와 마음으로 가만히 느껴본 소중한 시간이 되었기를 바랍니다 [지침서, 66항]."</li>
@@ -147,7 +136,6 @@ function updateOctober31Lesson(doc){
       <li><strong>교사:</strong> "그럼 오늘 모임을 마무리하며, 활동지 하단에 있는 <strong>마침 기도</strong>를 두 손 모아 기쁜 목소리로 바치겠습니다."</li>
       <li><strong>교사/아동 다 함께:</strong> "묵주기도의 어머니 마리아님, 묵주기도를 통해 저희가 예수님을 더 깊이 사랑할 수 있게 도와주세요. 아멘."</li>
     </ul>
-
     <hr>
     <section class="teacher-rubric">
       <h3>⛪ 교리 교사를 위한 피드백 루브릭 가이드 (사후 성찰용)</h3>
@@ -159,13 +147,14 @@ function updateOctober31Lesson(doc){
 }
 
 function enhanceVideos(doc){
+  doc.querySelectorAll('.portal-video-embed,.portal-video-fallback').forEach(el=>el.remove());
   const seen=new Set();
   [...doc.querySelectorAll('a[href*="youtube.com"],a[href*="youtu.be"]')].forEach(a=>{
     const id=youtubeId(a.href);
     if(!id) return;
     const section=a.closest('section')||doc.body;
     const key=(section.id||'page')+':'+id;
-    if(seen.has(key)||section.querySelector('[data-youtube-id="'+id+'"]')) return;
+    if(seen.has(key)) return;
     seen.add(key);
     const box=doc.createElement('div');
     box.className='portal-video-embed';
@@ -191,15 +180,17 @@ frame.addEventListener('load',()=>{
   const archive=doc.querySelector('.archive-link');
   if(archive){archive.href='index.html#semester1';archive.target='_top';archive.textContent='↩ 2026 1학기 교안 보기';}
 
-  const style=doc.createElement('style');
-  style.id='semester2-enhancement-style';
-  style.textContent=`
-    .semester-schedule{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:26px 28px;margin:24px 0 30px;box-shadow:0 6px 18px rgba(55,43,31,.04)}
-    .schedule-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:16px}.schedule-heading h2{margin:3px 0 0;font-size:1.35rem}.schedule-kicker{font-size:.73rem;font-weight:850;letter-spacing:.1em;color:#9a5b2e}.schedule-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}.schedule-table{width:100%;border-collapse:collapse;background:white;min-width:570px}.schedule-table th,.schedule-table td{padding:12px 14px;border-bottom:1px solid #eee6dc;text-align:left;vertical-align:top}.schedule-table thead th{background:#f5eee5;color:#6f4a2e;font-size:.82rem}.schedule-table tbody th{width:68px;text-align:center;background:#fbf7f1;color:#80502d;font-weight:850}.schedule-table td:nth-child(2){width:78px;font-weight:800;white-space:nowrap}.schedule-table td strong{display:block}.schedule-table td span{display:block;color:var(--muted);font-size:.86rem;margin-top:3px}.schedule-table tbody tr:last-child th,.schedule-table tbody tr:last-child td{border-bottom:0}
-    .portal-video-embed{margin:18px 0 24px;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 8px 24px rgba(0,0,0,.12);aspect-ratio:16/9}.portal-video-embed iframe{width:100%;height:100%;border:0;display:block}.portal-video-fallback{margin:-12px 0 22px;font-size:.9rem;color:#6b7280}.portal-video-fallback a{color:#c62828;font-weight:800}.teacher-rubric{background:#f8f5ef;border:1px solid #e1d7ca;border-radius:14px;padding:4px 18px 12px}.teacher-rubric h3{margin-top:18px}
-    @media(max-width:820px){.semester-schedule{padding:20px 14px;border-radius:16px}.schedule-table th,.schedule-table td{padding:10px 11px}}
-  `;
-  doc.head.appendChild(style);
+  if(!doc.getElementById('semester2-enhancement-style')){
+    const style=doc.createElement('style');
+    style.id='semester2-enhancement-style';
+    style.textContent=`
+      .semester-schedule{background:var(--paper);border:1px solid var(--line);border-radius:20px;padding:26px 28px;margin:24px 0 30px;box-shadow:0 6px 18px rgba(55,43,31,.04)}
+      .schedule-heading{display:flex;align-items:end;justify-content:space-between;margin-bottom:16px}.schedule-heading h2{margin:3px 0 0;font-size:1.35rem}.schedule-kicker{font-size:.73rem;font-weight:850;letter-spacing:.1em;color:#9a5b2e}.schedule-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}.schedule-table{width:100%;border-collapse:collapse;background:white;min-width:570px}.schedule-table th,.schedule-table td{padding:12px 14px;border-bottom:1px solid #eee6dc;text-align:left;vertical-align:top}.schedule-table thead th{background:#f5eee5;color:#6f4a2e;font-size:.82rem}.schedule-table tbody th{width:68px;text-align:center;background:#fbf7f1;color:#80502d;font-weight:850}.schedule-table td:nth-child(2){width:78px;font-weight:800;white-space:nowrap}.schedule-table td strong{display:block}.schedule-table td span{display:block;color:var(--muted);font-size:.86rem;margin-top:3px}.schedule-table tbody tr:last-child th,.schedule-table tbody tr:last-child td{border-bottom:0}
+      .portal-video-embed{margin:18px 0 24px;border-radius:16px;overflow:hidden;background:#000;box-shadow:0 8px 24px rgba(0,0,0,.12);aspect-ratio:16/9}.portal-video-embed iframe{width:100%;height:100%;border:0;display:block}.portal-video-fallback{margin:-12px 0 22px;font-size:.9rem;color:#6b7280}.portal-video-fallback a{color:#c62828;font-weight:800}.teacher-rubric{background:#f8f5ef;border:1px solid #e1d7ca;border-radius:14px;padding:4px 18px 12px}.teacher-rubric h3{margin-top:18px}
+      @media(max-width:820px){.semester-schedule{padding:20px 14px;border-radius:16px}.schedule-table th,.schedule-table td{padding:10px 11px}}
+    `;
+    doc.head.appendChild(style);
+  }
 
   addSemesterSchedule(doc);
   updateOctober31Lesson(doc);
