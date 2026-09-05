@@ -25,6 +25,21 @@ function youtubeId(href){
   return null;
 }
 
+function updateMartyrVideo(doc){
+  const p1=doc.getElementById('p1');
+  if(!p1) return;
+  const newUrl='https://youtube.com/watch?v=tB5IhZULHsI&feature=shared';
+  p1.querySelectorAll('a[href*="hAchjDe2NAc"]').forEach(a=>{
+    a.href=newUrl;
+    a.textContent=newUrl;
+  });
+  p1.querySelectorAll('strong').forEach(el=>{
+    if(el.textContent.trim()==='[초등부] 순교자 성월'){
+      el.textContent='[초등부] 유대철 베드로 성인';
+    }
+  });
+}
+
 function addSemesterSchedule(doc){
   const home=doc.getElementById('home');
   const hero=home?.querySelector('.home-hero');
@@ -188,6 +203,7 @@ frame.addEventListener('load',()=>{
 
   addSemesterSchedule(doc);
   updateOctober31Lesson(doc);
+  updateMartyrVideo(doc);
   enhanceVideos(doc);
 });
 </script>
