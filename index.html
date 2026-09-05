@@ -26,13 +26,14 @@
 const frame=document.getElementById('semesterFrame');
 const loading=document.getElementById('loading');
 let currentSemester=2;
+const portalVersion='20260905-1228';
 
 function openSemester(n){
   currentSemester=n;
   document.getElementById('tab1').classList.toggle('active',n===1);
   document.getElementById('tab2').classList.toggle('active',n===2);
   loading.classList.remove('hidden');
-  frame.src=n===1?'2026-first-semester.html':'2026-second-semester.html';
+  frame.src=n===1?'2026-first-semester.html':'2026-second-semester.html?v='+portalVersion;
   history.replaceState(null,'',n===1?'#semester1':'#semester2');
 }
 
